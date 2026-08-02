@@ -41,7 +41,7 @@ jobs:
       - name: Install example dependencies
         run: python -m pip install --disable-pip-version-check -r examples/fastapi-demo/requirements.txt
       - name: Set up Chrome for headless checks
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@v2
       - name: Build TypeScript and CSS distributions
         run: npm run build
       - name: Release and browser verification
