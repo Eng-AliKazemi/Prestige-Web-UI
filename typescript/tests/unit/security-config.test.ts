@@ -6,7 +6,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Prestige } from '../../src/core/DesktopEngine.js';
 import { replaceContent } from '../../src/utils/dom.js';
-import { sanitizeHtml, sanitizeWith } from '../../src/utils/sanitize.js';
+import { sanitizeHtml, sanitizeTitlebarHtml, sanitizeWith } from '../../src/utils/sanitize.js';
 import { web3TransactionGuard } from '../../src/ui/Dialogs.js';
 import { createTabs, createDataTable, createAlert, createAccordion } from '../../src/ui/Components.js';
 import type { SecurityOptions } from '../../src/types/desktop.js';
@@ -101,6 +101,25 @@ describe('pluggable sanitizer', () => {
     it('keeps the exported sanitizeHtml default intact', () => {
         const frag = sanitizeHtml('<a href="javascript:alert(1)">x</a>');
         expect(frag.querySelector('a')?.getAttribute('href')).toBeNull();
+    });
+
+    it('sanitizeTitlebarHtml keeps buttons and inline style but strips active vectors', () => {
+        const frag = sanitizeTitlebarHtml(
+            '<button class="window-btn" data-act="close" onclick="globalThis.pwned = true" style="background:red"></button>' +
+            '<script>globalThis.pwned = true</script><a href="javascript:alert(1)">x</a>',
+        );
+        const btn = frag.querySelector('button.window-btn');
+        expect(btn).not.toBeNull();
+        expect(btn?.getAttribute('data-act')).toBe('close');
+        expect(btn?.getAttribute('style')).toBe('background:red');
+        expect(btn?.getAttribute('onclick')).toBeNull();
+        expect(frag.querySelector('script')).toBeNull();
+        expect(frag.querySelector('a')?.getAttribute('href')).toBeNull();
+    });
+
+    it('keeps the strict sanitizeHtml blocklist on buttons and inline style', () => {
+        const frag = sanitizeHtml('<button class="window-btn" style="background:red"></button>');
+        expect(frag.querySelector('button')).toBeNull();
     });
 
     it('threads the configured sanitizer through html-capable primitives', () => {

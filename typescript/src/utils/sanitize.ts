@@ -9,6 +9,10 @@ import type { CustomSanitizer } from '../types/desktop.js';
 // can trigger network requests to attacker-controlled URLs; the animation
 // elements can rewrite attribute values (including `href`) at runtime.
 const BLOCKED_TAGS = /^(script|style|iframe|object|embed|link|meta|base|form|textarea|input|button|animate|animateMotion|animateTransform|discard|foreignObject|use|image|feImage|set)$/i;
+// `BLOCKED_TAGS` minus `button`: custom titlebar strings are developer-authored
+// (trusted callback) and legitimately need `<button>` window controls, so the
+// structural blocklist is relaxed for that path only.
+const TITLEBAR_TAGS = /^(script|style|iframe|object|embed|link|meta|base|form|textarea|input|animate|animateMotion|animateTransform|discard|foreignObject|use|image|feImage|set)$/i;
 const URL_ATTRIBUTES = /(?:^|:)(href|src|action|formaction|poster|cite)$/i;
 const SAFE_URL_START = /^(https?:|mailto:|tel:|#|\/|\.{1,2}\/)/i;
 
@@ -31,6 +35,26 @@ export function escapeHtml(value: string): string {
  * URLs that use unsafe schemes. Returns a safe `DocumentFragment`.
  */
 export function sanitizeHtml(html: string): DocumentFragment {
+    return sanitizeFragment(html, BLOCKED_TAGS, false);
+}
+
+/**
+ * Trusted-callback sanitizer for string output from `renderTitlebar`.
+ *
+ * `renderTitlebar` is developer-authored code with the same trust boundary as
+ * returning a DOM `Node`, so this relaxes the untrusted-content blocklist: the
+ * `<button>` elements a custom titlebar needs for its window controls survive,
+ * and inline `style` attributes are kept. Active-execution vectors are still
+ * removed (`script`/`iframe`/`object`/`embed`/`form`/`input`/... plus inline
+ * `on*` handlers, `srcdoc`, `nonce`, and unsafe URLs), so a titlebar label must
+ * still be HTML-escaped by the caller. Returns a safe `DocumentFragment`.
+ */
+export function sanitizeTitlebarHtml(html: string): DocumentFragment {
+    return sanitizeFragment(html, TITLEBAR_TAGS, true);
+}
+
+/** Shared TreeWalker pass shared by the untrusted and titlebar sanitizers. */
+function sanitizeFragment(html: string, blocklist: RegExp, allowStyleAttr: boolean): DocumentFragment {
     const template = document.createElement('template');
     template.innerHTML = String(html);
 
@@ -43,7 +67,7 @@ export function sanitizeHtml(html: string): DocumentFragment {
 
     for (const el of elements) {
         if (!template.content.contains(el)) continue;
-        if (BLOCKED_TAGS.test(el.tagName)) {
+        if (blocklist.test(el.tagName)) {
             el.remove();
             continue;
         }
@@ -51,7 +75,7 @@ export function sanitizeHtml(html: string): DocumentFragment {
             const attr = el.attributes.item(i);
             if (!attr) continue;
             const name = attr.name.toLowerCase();
-            if (name.startsWith('on') || name === 'style' || name === 'srcdoc' || name === 'nonce') {
+            if (name.startsWith('on') || name === 'srcdoc' || name === 'nonce' || (!allowStyleAttr && name === 'style')) {
                 el.removeAttribute(attr.name);
                 continue;
             }

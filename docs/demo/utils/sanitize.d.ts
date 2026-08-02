@@ -14,6 +14,18 @@ export declare function escapeHtml(value: string): string;
  */
 export declare function sanitizeHtml(html: string): DocumentFragment;
 /**
+ * Trusted-callback sanitizer for string output from `renderTitlebar`.
+ *
+ * `renderTitlebar` is developer-authored code with the same trust boundary as
+ * returning a DOM `Node`, so this relaxes the untrusted-content blocklist: the
+ * `<button>` elements a custom titlebar needs for its window controls survive,
+ * and inline `style` attributes are kept. Active-execution vectors are still
+ * removed (`script`/`iframe`/`object`/`embed`/`form`/`input`/... plus inline
+ * `on*` handlers, `srcdoc`, `nonce`, and unsafe URLs), so a titlebar label must
+ * still be HTML-escaped by the caller. Returns a safe `DocumentFragment`.
+ */
+export declare function sanitizeTitlebarHtml(html: string): DocumentFragment;
+/**
  * Dispatch HTML sanitization through a caller-supplied sanitizer when one is
  * configured, falling back to the built-in TreeWalker `sanitizeHtml`.
  *

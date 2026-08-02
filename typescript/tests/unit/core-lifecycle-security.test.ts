@@ -117,6 +117,31 @@ describe('safe rendering and content roots', () => {
         nodeEngine.destroy();
     });
 
+    it('keeps window controls and inline style in string titlebars while still stripping active vectors', () => {
+        mountDesktop();
+        installMemoryStorage();
+        const engine = new Prestige({
+            animations: false,
+            renderTitlebar: (label: string) =>
+                `<div class="window-titlebar" style="background:linear-gradient(135deg,#fbe482,#000)">` +
+                `<span class="window-title" style="font-weight:700">${label}</span>` +
+                `<div class="window-controls">` +
+                `<button class="window-btn window-btn-minimize" data-act="minimize" title="Minimize"></button>` +
+                `<button class="window-btn window-btn-close" data-act="close" title="Close"></button>` +
+                `</div>` +
+                `<script>globalThis.pwned = true</script>` +
+                `</div>`,
+        });
+        const win = engine.openWindow('string-title')!;
+        expect(win.querySelector('script')).toBeNull();
+        expect(win.querySelector('.window-btn-minimize')).not.toBeNull();
+        expect(win.querySelector('.window-btn-close')).not.toBeNull();
+        expect(win.querySelector('.window-btn-minimize')?.getAttribute('data-act')).toBe('minimize');
+        expect(win.querySelector('.window-titlebar')?.getAttribute('style')).toContain('linear-gradient');
+        expect(win.querySelector('.window-title')?.textContent).toBe('string-title');
+        engine.destroy();
+    });
+
     it('wraps registered custom content in window-content-main for set/get APIs', () => {
         mountDesktop();
         installMemoryStorage();

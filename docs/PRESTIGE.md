@@ -267,7 +267,12 @@ const prestige = new Prestige({
   lockPassword: 'prestige',          // Client-side UI password (default: 'prestige')
 
   // ── Titlebar Customization ──
-  renderTitlebar: null,              // Custom titlebar renderer function: (label, icon) => string
+  renderTitlebar: null,              // Custom titlebar renderer: (label, icon) => string | Node.
+                                     // String output is treated as trusted developer markup —
+                                     // <button> window controls and inline style survive, but
+                                     // active vectors (script, iframe, on*, srcdoc, nonce,
+                                     // unsafe URLs) are stripped. Escape the label yourself;
+                                     // returning a DOM Node bypasses all scrubbing.
 
   // ── App Manifests ──
   apps: {

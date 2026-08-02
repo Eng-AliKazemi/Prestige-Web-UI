@@ -6,7 +6,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 import { DisposalStack, Owned } from './Memory.js';
 import { $tag, $text, replaceContent, isolatedPostTargetOrigin } from '../utils/dom.js';
-import { assertSafeAppId, isSafeIframeSrc, sanitizeWith } from '../utils/sanitize.js';
+import { assertSafeAppId, isSafeIframeSrc, sanitizeTitlebarHtml, sanitizeWith } from '../utils/sanitize.js';
 import { renderIcons } from '../ui/LucideIcons.js';
 import type { AppContent, AppManifest, SecurityOptions } from '../types/desktop.js';
 
@@ -236,7 +236,9 @@ export class WindowManager {
         if (this._host.config.renderTitlebar) {
             const rendered = this._host.config.renderTitlebar(label, icon);
             if (rendered instanceof Node) return rendered;
-            return sanitizeWith(rendered, this._host.config.security?.sanitizer);
+            const sanitizer = this._host.config.security?.sanitizer;
+            if (sanitizer) return sanitizeWith(rendered, sanitizer);
+            return sanitizeTitlebarHtml(rendered);
         }
         return this._defaultTitlebar(label, icon);
     }

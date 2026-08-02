@@ -2,6 +2,7 @@ var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 const BLOCKED_TAGS = /^(script|style|iframe|object|embed|link|meta|base|form|textarea|input|button|animate|animateMotion|animateTransform|discard|foreignObject|use|image|feImage|set)$/i;
+const TITLEBAR_TAGS = /^(script|style|iframe|object|embed|link|meta|base|form|textarea|input|animate|animateMotion|animateTransform|discard|foreignObject|use|image|feImage|set)$/i;
 const URL_ATTRIBUTES = /(?:^|:)(href|src|action|formaction|poster|cite)$/i;
 const SAFE_URL_START = /^(https?:|mailto:|tel:|#|\/|\.{1,2}\/)/i;
 function escapeHtml(value) {
@@ -10,6 +11,12 @@ function escapeHtml(value) {
   return div.innerHTML;
 }
 function sanitizeHtml(html) {
+  return sanitizeFragment(html, BLOCKED_TAGS, false);
+}
+function sanitizeTitlebarHtml(html) {
+  return sanitizeFragment(html, TITLEBAR_TAGS, true);
+}
+function sanitizeFragment(html, blocklist, allowStyleAttr) {
   const template = document.createElement("template");
   template.innerHTML = String(html);
   const elements = [];
@@ -20,7 +27,7 @@ function sanitizeHtml(html) {
   }
   for (const el of elements) {
     if (!template.content.contains(el)) continue;
-    if (BLOCKED_TAGS.test(el.tagName)) {
+    if (blocklist.test(el.tagName)) {
       el.remove();
       continue;
     }
@@ -28,7 +35,7 @@ function sanitizeHtml(html) {
       const attr = el.attributes.item(i);
       if (!attr) continue;
       const name = attr.name.toLowerCase();
-      if (name.startsWith("on") || name === "style" || name === "srcdoc" || name === "nonce") {
+      if (name.startsWith("on") || name === "srcdoc" || name === "nonce" || !allowStyleAttr && name === "style") {
         el.removeAttribute(attr.name);
         continue;
       }
@@ -606,7 +613,9 @@ class WindowManager {
     if (this._host.config.renderTitlebar) {
       const rendered = this._host.config.renderTitlebar(label, icon);
       if (rendered instanceof Node) return rendered;
-      return sanitizeWith(rendered, (_a = this._host.config.security) == null ? void 0 : _a.sanitizer);
+      const sanitizer = (_a = this._host.config.security) == null ? void 0 : _a.sanitizer;
+      if (sanitizer) return sanitizeWith(rendered, sanitizer);
+      return sanitizeTitlebarHtml(rendered);
     }
     return this._defaultTitlebar(label, icon);
   }
@@ -5357,6 +5366,7 @@ export {
   renderIcons,
   replaceContent,
   sanitizeHtml,
+  sanitizeTitlebarHtml,
   sanitizeWith,
   setSafeAttribute,
   trapFocusWithin,
