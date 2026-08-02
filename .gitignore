@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.local
+__pycache__/
+*.py[cod]
+*.sqlite3
+archive
+CHANGES.md
+.prestigeui/

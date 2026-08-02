@@ -1,0 +1,251 @@
+.dock-wrap {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 9000;
+    display: flex; justify-content: center; align-items: flex-end;
+    padding: 0 16px 12px;
+    pointer-events: none;
+    background: transparent;
+}
+.dock {
+    position: relative;
+    pointer-events: auto;
+    display: flex; align-items: flex-end;
+    gap: 8px;
+    overflow-x: visible;
+    scrollbar-width: none;
+    padding-bottom: 12px;
+}
+/* Moving-gradient underline under the dock, themed on the project accent (gold):
+   a smooth accent-shade gradient (`::before`) whose brightness waves travel
+   along the line. It brightens and thickens when the dock is hovered. Only
+   --prestige-accent tokens are used — no hardcoded colors, no artificial
+   segmentation. */
+.dock::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -5px;
+    height: 4px;
+    border-radius: 999px;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+        var(--prestige-accent) 0%, var(--prestige-accent-90) 12.5%, var(--prestige-accent-50) 25%,
+        var(--prestige-accent-90) 37.5%, var(--prestige-accent) 50%, var(--prestige-accent-90) 62.5%,
+        var(--prestige-accent-50) 75%, var(--prestige-accent-90) 87.5%, var(--prestige-accent) 100%);
+    background-size: 200% 100%;
+    animation: prestigeDockFlow 5s linear infinite;
+    box-shadow: 0 0 12px var(--prestige-accent-45);
+    opacity: 0.9;
+    transition: height 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+}
+.dock:hover::before {
+    height: 6px;
+    opacity: 1;
+    box-shadow: 0 0 22px var(--prestige-accent-70);
+}
+@keyframes prestigeDockFlow {
+    0%   { background-position: 0% center; }
+    100% { background-position: 100% center; }
+}
+[data-animations="false"] .dock::before {
+    animation: none;
+    transition: none;
+}
+.dock::-webkit-scrollbar { display: none; }
+.dock-group { display: flex; align-items: flex-end; gap: 8px; }
+
+.dock-item {
+    flex: 0 0 auto;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--prestige-glass-15);
+    background: linear-gradient(135deg, var(--c1, var(--prestige-accent)) 0%, var(--c2, var(--prestige-accent)) 100%);
+    color: var(--prestige-text);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow:
+        0 8px 24px var(--prestige-shadow-30),
+        inset 0 1px 0 var(--prestige-glass-12);
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease, border-color 0.2s ease;
+    padding: 0;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+.dock-item:hover {
+    transform: translateY(-6px) scale(1.15);
+    box-shadow:
+        0 14px 30px var(--prestige-accent-30),
+        inset 0 1px 0 var(--prestige-glass-25);
+    z-index: 2;
+}
+.dock-item:active { transform: translateY(-2px) scale(1.05); }
+.dock-item.is-open { border-color: var(--prestige-glass-45); }
+.dock-item.is-open::after {
+    content: '';
+    position: absolute;
+    bottom: -7px; left: 50%;
+    transform: translateX(-50%);
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--prestige-text);
+    box-shadow: 0 0 6px var(--prestige-text);
+}
+.dock-item.has-minimized::after {
+    background: var(--prestige-text);
+    box-shadow: 0 0 6px var(--prestige-text);
+}
+.dock-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+.dock-icon svg {
+    width: 24px; height: 24px;
+    stroke-width: 2.2px;
+    color: var(--prestige-text); display: block;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+    will-change: transform;
+}
+.dock-item:hover .dock-icon svg { transform: rotate(360deg); }
+.dock-label {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--prestige-accent-85);
+    color: var(--prestige-text);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px; font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    border: 1px solid var(--prestige-accent-25);
+    backdrop-filter: blur(8px);
+}
+[data-theme="light"] .dock-label {
+    background: var(--prestige-accent-85);
+    color: var(--prestige-text);
+    border-color: var(--prestige-accent-25);
+}
+.dock-item:hover .dock-label { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.dock-scroll-left, .dock-scroll-right {
+    pointer-events: auto;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--prestige-glass-65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    color: var(--prestige-primary-dark);
+    border: 1px solid var(--prestige-glass-border);
+    display: none; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 20px; font-weight: 700;
+    line-height: 1; padding: 0;
+    margin: 0 4px;
+    user-select: none;
+    position: relative; top: -2px;
+}
+.dock-scroll-left.is-visible, .dock-scroll-right.is-visible { display: flex; }
+.dock-scroll-left:hover, .dock-scroll-right:hover { background: var(--prestige-accent-15); }
+
+@keyframes dockBounce {
+    0%, 100% { transform: translateY(0)   scale(1);    }
+    20%      { transform: translateY(-14px) scale(1.05); }
+    40%      { transform: translateY(0)   scale(0.95); }
+    60%      { transform: translateY(-7px)  scale(1.02); }
+    80%      { transform: translateY(0)   scale(0.99); }
+}
+.dock-item.is-bouncing { animation: dockBounce 0.7s ease; }
+
+/* Drag feedback */
+.dock-item.is-dragging {
+    opacity: 0.35;
+    transform: scale(0.92);
+    transition: opacity 0.12s ease;
+    pointer-events: none;
+}
+.dock.is-dragging-active .dock-item:hover {
+    transform: none;
+    box-shadow: 0 8px 24px var(--prestige-shadow-30), inset 0 1px 0 var(--prestige-glass-12);
+}
+.dock-item.drag-over {
+    transform: translateY(-6px) scale(1.10);
+    box-shadow: 0 0 0 2px var(--prestige-accent-70), 0 0 18px var(--prestige-accent-45), inset 0 1px 0 var(--prestige-glass-20);
+}
+.dock-item.drag-over-left::after,
+.dock-item.drag-over-right::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--prestige-accent);
+    box-shadow: 0 0 10px var(--prestige-accent-90);
+}
+.dock-item.drag-over-left::after { left: 6px; }
+.dock-item.drag-over-right::after { right: 6px; }
+
+[data-gpu="false"] .dock-item,
+[data-gpu="false"] .dock-icon svg,
+[data-gpu="false"] .dock-label {
+    will-change: auto;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+}
+
+/* Cross-zone drag-drop target highlight */
+.dock.is-drop-target {
+    outline: 2px dashed var(--prestige-accent-50);
+    outline-offset: -3px;
+    border-radius: 12px;
+    background: var(--prestige-accent-04);
+    transition: outline-color 0.15s ease, background 0.15s ease;
+}
+
+/* Floating icon ghost that follows the cursor while dragging a dock/topdock button */
+.dock-drag-ghost {
+    position: fixed;
+    z-index: 40000;
+    pointer-events: none;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--prestige-accent) 0%, var(--prestige-accent) 100%);
+    border: 2px solid var(--prestige-glass-30);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow:
+        0 14px 30px var(--prestige-shadow-30),
+        0 0 0 3px var(--prestige-accent-40);
+    transform: translate(-50%, -70%);
+    animation: dockGhostIn 0.15s ease;
+}
+.dock-drag-ghost svg {
+    width: 22px; height: 22px;
+    color: var(--prestige-text);
+    display: block;
+}
+@keyframes dockGhostIn {
+    from { opacity: 0; transform: translate(-50%, -70%) scale(0.6); }
+    to   { opacity: 1; transform: translate(-50%, -70%) scale(1); }
+}
+[data-gpu="false"] .dock-drag-ghost { animation: none; }
+
+@media (max-width: 700px) {
+    .dock {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 18px 8px 12px;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+    }
+    .dock-group { flex: 0 0 auto; }
+}

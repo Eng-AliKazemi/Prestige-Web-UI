@@ -1,0 +1,55 @@
+{
+  "name": "prestige-ui",
+  "version": "2.5.0",
+  "description": "Zero-dependency Web UI desktop shell — dock, windows, dialogs, menubar",
+  "license": "Apache-2.0",
+  "author": "Prestige UI",
+  "keywords": [
+    "ui",
+    "desktop",
+    "shell",
+    "windows",
+    "dock",
+    "dashboard",
+    "vanilla-js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eng-AliKazemi/PRESTIGE-UI.git"
+  },
+  "homepage": "https://github.com/Eng-AliKazemi/PRESTIGE-UI#readme",
+  "bugs": {
+    "url": "https://github.com/Eng-AliKazemi/PRESTIGE-UI/issues"
+  },
+  "files": [
+    "dist/",
+    "typescript/src/",
+    "css/",
+    "THIRD_PARTY_NOTICES"
+  ],
+  "type": "module",
+  "main": "./dist/prestige.umd.cjs",
+  "module": "./dist/prestige.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/prestige.js",
+      "require": "./dist/prestige.umd.cjs",
+      "default": "./dist/prestige.js"
+    },
+    "./prestige.css": "./dist/prestige.css",
+    "./prestige.umd.js": "./dist/prestige.umd.js",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "style": "dist/prestige.css",
+  "scripts": {
+    "build": "npm run build:ts && python3 scripts/build.py",
+    "build:ts": "cd typescript && npm run build",
+    "test": "cd typescript && npm run test",
+    "typecheck": "cd typescript && npm run typecheck",
+    "verify:package": "node scripts/verify-package.mjs",
+    "verify": "python3 scripts/verify.py && npm run verify:package"
+  }
+}

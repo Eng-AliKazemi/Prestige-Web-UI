@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-animations="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prestige UI — Dialogs Demo</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="../dist/prestige.css">
+  <script src="../dist/prestige.umd.js" defer></script>
+</head>
+<body class="desktop-body">
+  <div class="desktop-wallpaper"></div>
+  <header class="menubar">
+    <div class="menubar-left">
+      <span class="menubar-app">Dialogs Demo</span>
+      <span class="menubar-item" id="active-window-title">No windows open</span>
+    </div>
+    <div class="menubar-right"><span class="menubar-clock" id="menubar-clock"></span></div>
+  </header>
+  <main class="desktop-canvas" id="desktop-canvas">
+    <div class="desktop-watermark">
+      <div class="atrium-wordmark">Dialog System</div>
+      <div class="desktop-credit">All methods return a Promise — no native browser dialogs</div>
+    </div>
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var p = new Prestige({ grid: false, apps: {} });
+    p.init();
+    window._p = p;
+
+    p.registerApp('dialogs', {
+      title: 'Dialog Demos',
+      icon: 'message-square',
+      placement: 'hidden',
+      content: function () {
+        var container = $tag('div', { class: 'window-content-main' });
+        var row = $tag('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '8px' } });
+        var result = $tag('div', { style: { marginTop: '12px', minHeight: '20px', fontSize: '13px' } }, [$text('Click a button to test')]);
+
+        var demos = [
+          { label: 'Info',    variant: 'primary', run: function () { return p.dialogInfo('Data saved successfully.'); } },
+          { label: 'Warning', variant: 'ghost',   run: function () { return p.dialogWarning('Session expiring.'); } },
+          { label: 'Danger',  variant: 'danger',  run: function () { return p.dialogDanger({ title: 'Error', message: 'Connection lost.' }); } },
+          { label: 'Alert',   variant: 'ghost',   run: function () { return p.dialogAlert('This is an alert.'); } },
+          { label: 'Confirm', variant: 'ghost',   run: function () { return p.dialogConfirm({ title: 'Delete?', message: 'Permanently delete?', danger: true }); } },
+          { label: 'Prompt',  variant: 'ghost',   run: function () { return p.dialogPrompt({ title: 'Your Name', defaultValue: 'Guest' }); } },
+          { label: 'Save',    variant: 'ghost',   run: function () { return p.dialogSave({ defaultFilename: 'report.txt' }); } },
+          { label: 'Open',    variant: 'ghost',   run: function () { return p.dialogOpen({ multiple: true }); } }
+        ];
+
+        demos.forEach(function (demo) {
+          var btn = createBtn(demo.label, { variant: demo.variant, type: 'button' });
+          btn.addEventListener('click', function () {
+            demo.run().then(function (value) {
+              result.textContent = demo.label + ' \u2192 ' + (value === null ? 'null' : typeof value === 'object' ? JSON.stringify(value) : String(value));
+            });
+          });
+          row.appendChild(btn);
+        });
+
+        container.appendChild(createCard('Dialog Demos', $tag('div', null, [row, result])));
+        return container;
+      }
+    });
+
+    p.openWindow('dialogs', 'message-square', 'Dialog Demos');
+    if (typeof renderIcons === 'function') renderIcons();
+  });
+  </script>
+</body>
+</html>

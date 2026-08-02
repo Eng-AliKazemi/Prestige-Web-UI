@@ -1,0 +1,222 @@
+<!-- Prestige UI FastAPI state-management demonstration template. -->
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ user_theme }}" data-animations="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prestige UI — State Workspace</title>
+  <link rel="stylesheet" href="/static/{{ assets['prestige.css']['file'] }}" integrity="{{ assets['prestige.css']['integrity'] }}" crossorigin="anonymous">
+  <script src="/static/{{ assets['prestige.js']['file'] }}" integrity="{{ assets['prestige.js']['integrity'] }}" crossorigin="anonymous" defer></script>
+  <style nonce="{{ csp_nonce }}">
+    .state-window {
+      background: var(--prestige-glass-90);
+      border-color: var(--prestige-accent-30);
+      box-shadow: 0 28px 72px var(--prestige-shadow-20), 0 8px 20px var(--prestige-accent-12);
+    }
+    .state-window .window-titlebar { background: var(--prestige-accent-20); }
+    .state-window.is-focused .window-titlebar { background: var(--prestige-accent-32); }
+    .state-window .window-content-main { background: var(--prestige-glass-55); }
+    .state-workspace { max-width: 920px; margin: 0 auto; }
+    .state-hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 6px 0 24px; }
+    .state-eyebrow { margin: 0 0 7px; color: var(--prestige-text-secondary); font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+    .state-hero h2 { margin: 0; font-size: 25px; letter-spacing: -0.04em; }
+    .state-hero p { margin: 8px 0 0; max-width: 540px; color: var(--prestige-text-secondary); font-size: 13px; line-height: 1.55; }
+    .state-status { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid var(--prestige-success-border); border-radius: 999px; background: var(--prestige-success-soft); color: var(--prestige-text); font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .state-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--prestige-success); }
+    .state-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr); gap: 16px; }
+    .state-card { margin-bottom: 16px; }
+    .state-card .card-header { padding: 15px 18px; }
+    .state-card .card-body { padding: 18px; }
+    .state-card h3 { margin: 0; }
+    .state-summary { padding: 20px; border-radius: var(--prestige-radius-lg); background: var(--prestige-accent-12); border: 1px solid var(--prestige-accent-25); }
+    .state-avatar { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 15px; background: var(--prestige-accent); color: var(--prestige-text); font-size: 19px; font-weight: 900; }
+    .state-summary h3 { margin: 12px 0 3px; font-size: 18px; }
+    .state-summary p { margin: 0; color: var(--prestige-text-secondary); font-size: 13px; }
+    .state-kv { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--prestige-accent-20); font-size: 12px; }
+    .state-kv span { color: var(--prestige-text-secondary); }
+    .state-kv strong { font-weight: 800; }
+    .signin-card { display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 18px auto 0; padding: 18px; border: 1px solid var(--prestige-accent-30); border-radius: var(--prestige-radius-lg); background: var(--prestige-glass-90); box-shadow: 0 28px 72px var(--prestige-shadow-20), 0 8px 20px var(--prestige-accent-12); }
+    .signin-card .btn { align-self: flex-start; }
+    .signin-hint { margin: 0; color: var(--prestige-text-secondary); font-size: 12px; line-height: 1.5; }
+    .signin-hint code { padding: 1px 5px; border-radius: 5px; background: var(--prestige-accent-20); color: var(--prestige-text); font-size: 11px; }
+    .state-note { margin: 0; padding: 12px 14px; border-left: 3px solid var(--prestige-accent); background: var(--prestige-accent-08); color: var(--prestige-text-secondary); font-size: 12px; line-height: 1.5; }
+    .state-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .state-feedback { min-height: 18px; color: var(--prestige-text-secondary); font-size: 12px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .metric { padding: 15px; border: 1px solid var(--prestige-glass-border); border-radius: var(--prestige-radius); background: var(--prestige-glass-55); }
+    .metric span { display: block; color: var(--prestige-text-secondary); font-size: 11px; font-weight: 700; }
+    .metric strong { display: block; margin-top: 7px; font-size: 22px; letter-spacing: -0.04em; }
+    .cache-strip { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding: 11px 13px; border-radius: var(--prestige-radius-sm); background: var(--prestige-accent-08); font-size: 12px; }
+    .cache-strip span { color: var(--prestige-text-secondary); }
+    @media (max-width: 640px) { .state-hero, .state-grid { display: block; } .state-status { margin-top: 14px; } .metric-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="desktop-body">
+  <div class="desktop-wallpaper"></div>
+  <header class="menubar">
+    <div class="menubar-left">
+      <span class="menubar-app">State Workspace</span>
+      <span class="menubar-item" id="active-window-title">No windows open</span>
+    </div>
+    <div class="menubar-right">
+      <span class="menubar-item" id="nav-user-badge">{% if authenticated %}{{ initial_user.username }} · {{ initial_user.role }}{% else %}Not signed in{% endif %}</span>
+      {% if authenticated %}<button class="menubar-btn" id="nav-signout" type="button" title="Sign out">Sign out</button>{% endif %}
+      <span class="menubar-clock" id="menubar-clock"></span>
+    </div>
+  </header>
+  <main class="desktop-canvas" id="desktop-canvas">
+    <div class="desktop-watermark">
+      <div class="atrium-wordmark">State Workspace</div>
+      {% if authenticated %}
+      <div class="desktop-credit">FastAPI + reactive local state · Server rendered at {{ server_time }}</div>
+      {% else %}
+      <div class="desktop-credit">Sign in to open the state workspace</div>
+      <form id="signin-form" class="signin-card">
+        <input id="signin-username" class="form-input" type="text" placeholder="Username" autocomplete="username" aria-label="Username">
+        <input id="signin-password" class="form-input" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password">
+        <button class="btn btn-primary" type="submit">Sign in</button>
+        {% if demo_credential_is_default %}
+        <p class="signin-hint">Development credential: <code>demo</code> / <code>demo-password</code>. Set <code>PRESTIGE_DEMO_PASSWORD</code> to change it.</p>
+        {% else %}
+        <p class="signin-hint">Credential is configured via <code>PRESTIGE_DEMO_USERNAME</code> / <code>PRESTIGE_DEMO_PASSWORD</code>.</p>
+        {% endif %}
+      </form>
+      {% endif %}
+    </div>
+  </main>
+  <div class="dock-wrap" id="dock-wrap">
+    <nav class="dock" id="dock">
+      <div class="dock-group">
+        <button class="dock-item" data-section="profile" data-icon="user-round" data-label="Profile state"><span class="dock-icon"><i data-prestige-icon="user-round"></i></span><span class="dock-label">Profile</span></button>
+        <button class="dock-item" data-section="monitor" data-icon="activity" data-label="Live metrics"><span class="dock-icon"><i data-prestige-icon="activity"></i></span><span class="dock-label">Metrics</span></button>
+      </div>
+    </nav>
+  </div>
+  <script id="prestige-initial-user" type="application/json">{{ initial_user | tojson }}</script>
+  <meta name="prestige-csrf-token" content="{{ csrf_token }}">
+  <script nonce="{{ csp_nonce }}">
+  document.addEventListener('DOMContentLoaded', function () {
+    var os = new Prestige({ grid: false, animations: true, apps: {} });
+    os.init();
+    var authenticated = {{ 'true' if authenticated else 'false' }};
+    var csrfHeader = { 'X-CSRF-Token': document.querySelector('meta[name="prestige-csrf-token"]').content };
+    var initialUserData = JSON.parse(document.getElementById('prestige-initial-user').textContent);
+    var profilePersistKey = initialUserData ? 'fastapi_user_' + initialUserData.id : null;
+    var profileStorageKey = profilePersistKey ? 'prestige_store_' + profilePersistKey : null;
+    try { localStorage.removeItem('prestige_store_fastapi_user'); } catch (error) { /* Storage may be unavailable. */ }
+
+    var signinForm = document.getElementById('signin-form');
+    if (signinForm) {
+      signinForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        var submit = signinForm.querySelector('button[type="submit"]');
+        submit.disabled = true;
+        try {
+          var response = await fetch('/api/v1/login', { method: 'POST', credentials: 'same-origin', headers: Object.assign({ 'Content-Type': 'application/json' }, csrfHeader), body: JSON.stringify({ username: document.getElementById('signin-username').value, password: document.getElementById('signin-password').value }) });
+          if (!response.ok) throw new Error('Sign in failed');
+          window.location.reload();
+        } catch (error) { os.toast('Sign in failed — check the credential and try again.', 'danger'); }
+        submit.disabled = false;
+      });
+    }
+    var signoutBtn = document.getElementById('nav-signout');
+    if (signoutBtn) {
+      signoutBtn.addEventListener('click', async function () {
+        signoutBtn.disabled = true;
+        try {
+          var response = await fetch('/api/v1/logout', { method: 'POST', credentials: 'same-origin', headers: csrfHeader });
+          if (!response.ok) throw new Error('Sign out failed');
+          try { localStorage.removeItem(profileStorageKey); } catch (error) { /* Storage may be unavailable. */ }
+          window.location.reload();
+        } catch (error) {
+          signoutBtn.disabled = false;
+          os.toast('Sign out failed. Please try again.', 'danger');
+        }
+      });
+    }
+
+    if (!authenticated) return;
+    var userStore = os.store.createStore('userProfile', { username: initialUserData.username, role: initialUserData.role }, { persistKey: profilePersistKey });
+    var badge = document.getElementById('nav-user-badge');
+    function renderBadge() { badge.textContent = userStore.username + ' · ' + userStore.role; }
+    userStore.$subscribe(renderBadge);
+    renderBadge();
+    os.on('window:open', function (payload) { payload.win.classList.add('state-window'); });
+
+    function createElement(tag, attrs, children) { return $tag(tag, attrs, children); }
+    function createText(value) { return $text(value); }
+    function createMetric(label, id) {
+      return createElement('div', { class: 'metric' }, [createElement('span', null, [createText(label)]), createElement('strong', { id: id }, [createText('—')])]);
+    }
+    function createProfileContent() {
+      var root = createElement('div', { class: 'window-content-main' });
+      var workspace = createElement('div', { class: 'state-workspace' });
+      var hero = createElement('div', { class: 'state-hero' }, [
+        createElement('div', null, [createElement('p', { class: 'state-eyebrow' }, [createText('Reactive profile')]), createElement('h2', null, [createText('One store, three live surfaces.')]), createElement('p', null, [createText('Changes update this preview, the menubar, and persisted browser state before you save them to FastAPI.')])]),
+        createElement('span', { class: 'state-status' }, [createText('Store hydrated')])
+      ]);
+      var formCard = createElement('section', { class: 'card state-card' });
+      formCard.appendChild(createElement('div', { class: 'card-header' }, [createElement('h3', null, [createText('Profile controls')]) ]));
+      var formBody = createElement('div', { class: 'card-body' });
+      var nameInput = createElement('input', { id: 'profile-name', class: 'form-input', type: 'text', 'aria-label': 'Username' });
+      var roleInput = createElement('input', { id: 'profile-role', class: 'form-input', type: 'text', 'aria-label': 'Role' });
+      formBody.append(createElement('div', { class: 'form-group' }, [createElement('label', { for: 'profile-name' }, [createText('Display name')]), nameInput]), createElement('div', { class: 'form-group' }, [createElement('label', { for: 'profile-role' }, [createText('Role')]), roleInput]));
+      var save = createElement('button', { class: 'btn btn-primary', type: 'button' }, [createText('Save to FastAPI')]);
+      var feedback = createElement('span', { class: 'state-feedback', 'aria-live': 'polite' });
+      formBody.appendChild(createElement('div', { class: 'state-actions' }, [save, feedback]));
+      formCard.appendChild(formBody);
+      var preview = createElement('aside', { class: 'state-summary' });
+      var avatar = createElement('div', { class: 'state-avatar', id: 'profile-avatar' });
+      var previewName = createElement('h3', { id: 'profile-preview-name' });
+      var previewRole = createElement('p', { id: 'profile-preview-role' });
+      var persistence = createElement('strong', { id: 'persistence-key' }, [createText(profilePersistKey)]);
+      preview.append(avatar, previewName, previewRole, createElement('div', { class: 'state-kv' }, [createElement('span', null, [createText('Persistence key')]), persistence, createElement('span', null, [createText('Server record')]), createElement('strong', null, [createText('#101')]) ]));
+      function renderPreview() { var initial = (userStore.username || '?').charAt(0).toUpperCase(); avatar.textContent = initial; previewName.textContent = userStore.username; previewRole.textContent = userStore.role; }
+      var cleanups = [userStore.$bindInput(nameInput, 'username'), userStore.$bindInput(roleInput, 'role'), userStore.$subscribe(renderPreview)];
+      var onProfileClose = function (payload) {
+        if (payload.section !== 'profile') return;
+        cleanups.forEach(function (cleanup) { cleanup(); });
+        os.off('window:close', onProfileClose);
+      };
+      os.on('window:close', onProfileClose);
+      renderPreview();
+      save.addEventListener('click', async function () {
+        save.disabled = true; feedback.textContent = 'Saving…';
+        try {
+          var response = await fetch('/api/v1/user', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': document.querySelector('meta[name="prestige-csrf-token"]').content }, body: JSON.stringify({ username: userStore.username, role: userStore.role }) });
+          if (!response.ok) throw new Error('Save failed');
+          feedback.textContent = 'Saved at ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          os.toast('Profile saved to FastAPI.', 'success');
+        } catch (error) { feedback.textContent = 'Could not save changes.'; os.toast('Profile save failed.', 'danger'); }
+        save.disabled = false;
+      });
+      workspace.append(hero, createElement('div', { class: 'state-grid' }, [formCard, preview]), createElement('p', { class: 'state-note' }, [createText('Try editing either field. The state store synchronizes the preview and menubar immediately; reloading demonstrates localStorage hydration.') ]));
+      root.appendChild(workspace); return root;
+    }
+    function createMetricsContent() {
+      var root = createElement('div', { class: 'window-content-main' });
+      var workspace = createElement('div', { class: 'state-workspace' });
+      var refresh = createElement('button', { class: 'btn btn-ghost btn-sm', type: 'button' }, [createText('Refresh now')]);
+      var users = createMetric('Active users', 'metric-users'); var cpu = createMetric('CPU load', 'metric-cpu'); var memory = createMetric('Memory', 'metric-memory');
+      var fetchedAt = createElement('strong', { id: 'metric-time' }, [createText('Waiting for response')]);
+      workspace.append(createElement('div', { class: 'state-hero' }, [createElement('div', null, [createElement('p', { class: 'state-eyebrow' }, [createText('SWR cache')]), createElement('h2', null, [createText('Fresh when it matters.')]), createElement('p', null, [createText('Cached data renders instantly, then refreshes in the background every ten seconds.')])]), refresh]), createElement('section', { class: 'card state-card' }, [createElement('div', { class: 'card-body' }, [createElement('div', { class: 'metric-grid' }, [users, cpu, memory]), createElement('div', { class: 'cache-strip' }, [createElement('span', null, [createText('Last API response')]), fetchedAt])]) ]));
+      function render(data) { users.querySelector('strong').textContent = data.active_users; cpu.querySelector('strong').textContent = data.cpu_load; memory.querySelector('strong').textContent = data.memory_usage; fetchedAt.textContent = data.fetched_at; }
+      async function load(force) { refresh.disabled = true; refresh.textContent = 'Refreshing…'; try { render(await os.store.fetchSWR('fastapi_stats', async function () { var response = await fetch('/api/v1/stats'); if (!response.ok) throw new Error('Metrics unavailable'); return response.json(); }, { ttl: 10000, staleWhileRevalidate: true, force: !!force })); } catch (error) { fetchedAt.textContent = 'Request failed'; os.toast('Metrics could not be refreshed.', 'danger'); } refresh.disabled = false; refresh.textContent = 'Refresh now'; }
+      var unsubscribeMetrics = os.store.onCacheChange('fastapi_stats', render);
+      var onMetricsClose = function (payload) {
+        if (payload.section !== 'monitor') return;
+        unsubscribeMetrics();
+        os.off('window:close', onMetricsClose);
+      };
+      os.on('window:close', onMetricsClose);
+      refresh.addEventListener('click', function () { load(true); }); load(false); root.appendChild(workspace); return root;
+    }
+    os.registerApp('profile', { title: 'Profile state', icon: 'user-round', placement: 'hidden', content: createProfileContent });
+    os.registerApp('monitor', { title: 'Live metrics', icon: 'activity', placement: 'hidden', content: createMetricsContent });
+    if (typeof window.renderIcons === 'function') window.renderIcons();
+    var restoredWindows = os.syncUrlState();
+    if (restoredWindows.length === 0) os.openWindow('profile', 'user-round', 'Profile state', document.querySelector('.dock-item[data-section="profile"]'));
+  });
+  </script>
+</body>
+</html>

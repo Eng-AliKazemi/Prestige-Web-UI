@@ -1,0 +1,89 @@
+.desktop-wallpaper {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: var(--prestige-bg);
+}
+
+.desktop-grid {
+    will-change: background-position;
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+        linear-gradient(var(--prestige-accent-04) 1px, transparent 1px),
+        linear-gradient(90deg, var(--prestige-accent-04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: gridDrift 30s linear infinite;
+}
+@keyframes gridDrift {
+    0%   { background-position: 0 0, 0 0; }
+    100% { background-position: 80px 80px, 80px 80px; }
+}
+
+.desktop-canvas {
+    position: fixed;
+    top: var(--prestige-menubar-height); bottom: 0; left: 0; right: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.desktop-watermark {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.atrium-wordmark {
+    font-size: 52px;
+    font-weight: 800;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 2px;
+    color: var(--prestige-text);
+    line-height: 1.1;
+    padding: 8px 0;
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+}
+
+.desktop-credit {
+    position: absolute;
+    top: calc(50% + 210px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--prestige-shadow-75);
+    letter-spacing: 0.8px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+    font-family: var(--prestige-font);
+    text-shadow: 0 0 20px var(--prestige-accent-18);
+}
+
+/* ── Fly-in Animations ─────────────────────── */
+@keyframes menubarFlyIn {
+    0%   { opacity: 0; transform: translateY(-100vh); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes watermarkFlyIn {
+    0%   { opacity: 0; transform: translate(-50%, calc(-50% - 100vh)) scale(0.95); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes dockFlyIn {
+    0%   { opacity: 0; transform: translateY(-100vh); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.menubar {
+    animation: menubarFlyIn 0.6s cubic-bezier(.34,1.56,.64,1) both;
+    will-change: transform, opacity;
+}
+.desktop-watermark {
+    animation: watermarkFlyIn 0.7s 0.12s cubic-bezier(.34,1.56,.64,1) both;
+    will-change: transform, opacity;
+}
+.dock-wrap {
+    animation: dockFlyIn 0.7s 0.20s cubic-bezier(.34,1.56,.64,1) both;
+    will-change: transform, opacity;
+}
+[data-gpu="false"] .desktop-grid { will-change: auto; }

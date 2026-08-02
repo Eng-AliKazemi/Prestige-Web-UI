@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- Dependency-free browser regression fixture for the built distribution. -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../dist/prestige.css"></head>
+<body class="desktop-body"><main id="shell"><header class="menubar"><div class="menubar-right"><span id="menubar-clock"></span></div></header><main id="desktop-canvas"></main><div id="dock"><div class="dock-group"></div></div></main><output id="result">PENDING</output>
+<script src="../dist/prestige.umd.js"></script><script>
+(function () {
+  try {
+    var shell = document.getElementById('shell');
+    var os = new Prestige({ container: shell, dock: false, topdock: false, clock: false, search: false, windowSwitcher: false, expose: false, xray: false, dockDragDrop: false, animations: false });
+    os.init();
+    os.registerApp('safe_app', { title: 'Safe', content: '<img src=x onerror=window.__xss=true>' });
+    var win = os.openWindow('safe_app', '', 'Safe');
+    if (win.querySelector('img') || win.querySelector('.window-body').textContent.indexOf('onerror=') === -1) throw new Error('untrusted content was parsed as HTML');
+    os.registerApp('trusted_app', { title: 'Trusted', placement: 'hidden', trustedHtml: true, content: '<img src="/safe.png" onerror="window.__xss=true"><scr' + 'ipt>window.__xss=true</scr' + 'ipt>' });
+    var trusted = os.openWindow('trusted_app', '', 'Trusted');
+    if (!trusted.querySelector('img') || trusted.querySelector('[onerror]') || trusted.querySelector('script')) throw new Error('trusted HTML sanitizer failed');
+    os.dialogInfo('Accessible').then(function () { document.getElementById('result').textContent = 'PASS'; });
+    var dialog = document.querySelector('.prestige-dialog');
+    if (!dialog || dialog.getAttribute('role') !== 'dialog' || dialog.getAttribute('aria-modal') !== 'true') throw new Error('dialog a11y semantics missing');
+    dialog.querySelector('.prestige-dialog-btn-primary').click();
+    os.toast('cleanup', 'info', 0);
+    os.destroy();
+    if (!document.getElementById('shell') || document.querySelector('.prestige-toast-container')) throw new Error('instance cleanup removed host markup or leaked overlays');
+  } catch (error) { document.getElementById('result').textContent = 'FAIL: ' + error.message; }
+}());
+</script></body></html>

@@ -1,0 +1,157 @@
+.prestige-dialog {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--prestige-glass-88);
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border: 1px solid var(--prestige-glass-border);
+    border-radius: var(--prestige-radius-lg);
+    box-shadow: var(--prestige-shadow-lg), 0 24px 60px var(--prestige-shadow-20);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: dialogIn 0.18s cubic-bezier(.34,1.56,.64,1);
+    z-index: 1001;
+}
+@keyframes dialogIn {
+    0%   { opacity: 0; transform: scale(0.92) translateY(12px); }
+    100% { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+.prestige-dialog-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 26px 0;
+}
+.prestige-dialog-icon {
+    flex: 0 0 36px;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+}
+.prestige-dialog-icon svg {
+    width: 32px; height: 32px;
+    stroke-width: 1.8;
+}
+.prestige-dialog[data-type="info"]   .prestige-dialog-icon svg { color: var(--prestige-primary); }
+.prestige-dialog[data-type="warning"] .prestige-dialog-icon svg { color: var(--prestige-warning); }
+.prestige-dialog[data-type="danger"]  .prestige-dialog-icon svg { color: var(--prestige-danger); }
+.prestige-dialog[data-type="confirm"] .prestige-dialog-icon svg { color: var(--prestige-primary); }
+.prestige-dialog[data-type="prompt"]  .prestige-dialog-icon svg { color: var(--prestige-primary); }
+
+.prestige-dialog-title {
+    flex: 1;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--prestige-text);
+    margin: 0;
+}
+
+.prestige-dialog-body {
+    padding: 16px 26px 0;
+    overflow-y: auto;
+}
+.prestige-dialog-message {
+    font-size: 0.9rem;
+    color: var(--prestige-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.prestige-dialog-input {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--prestige-glass-input);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid var(--prestige-glass-border);
+    border-radius: 10px;
+    color: var(--prestige-text);
+    font-size: 0.88rem;
+    font-family: var(--prestige-font);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.prestige-dialog-input:focus {
+    border-color: var(--prestige-primary);
+    box-shadow: 0 0 0 3px var(--prestige-accent-soft);
+}
+.prestige-dialog-input[type="file"] {
+    padding: 8px;
+    background: transparent;
+    border-style: dashed;
+}
+
+[data-gpu="false"] .prestige-dialog { will-change: auto; backface-visibility: visible; -webkit-backface-visibility: visible; }
+.prestige-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 18px 26px 22px;
+}
+.prestige-dialog-btn {
+    min-width: 80px;
+}
+
+/* ── Web3 transaction security guard ─────────────────────────────────────── */
+/* The overlay must be `position: fixed` for its z-index to take effect:
+   a static element ignores z-index, which would silently void the topmost
+   security-plane guarantee. Inline `style.zIndex` in JS is only a fallback. */
+.prestige-security-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: var(--prestige-plane-security);
+    background: var(--prestige-shadow-40);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+.prestige-web3-guard-card {
+    width: min(460px, 100%);
+    background: var(--prestige-glass-88);
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border: 1px solid var(--prestige-glass-border);
+    border-radius: var(--prestige-radius-lg);
+    box-shadow: var(--prestige-shadow-lg), 0 24px 60px var(--prestige-shadow-20);
+    padding: 24px 26px;
+    animation: dialogIn 0.18s cubic-bezier(.34,1.56,.64,1);
+}
+.prestige-web3-guard-title {
+    margin: 0 0 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--prestige-text);
+}
+.prestige-web3-guard-details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 14px;
+    margin: 0 0 18px;
+    font-size: 0.86rem;
+}
+.prestige-web3-guard-details dt {
+    color: var(--prestige-text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.prestige-web3-guard-details dd {
+    margin: 0;
+    color: var(--prestige-text);
+    word-break: break-all;
+}
+.prestige-web3-guard-mono {
+    font-family: var(--prestige-font-mono);
+    font-size: 0.8rem;
+}
+.prestige-web3-guard-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

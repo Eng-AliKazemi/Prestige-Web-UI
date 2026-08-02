@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-animations="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prestige UI — Desktop Example</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="../dist/prestige.css">
+  <style>.menubar, .desktop-watermark, .dock-wrap { animation: none !important; }</style>
+  <script src="../dist/prestige.umd.js" defer></script>
+</head>
+<body class="desktop-body">
+
+<div class="desktop-wallpaper"></div>
+
+<header class="menubar">
+  <div class="menubar-left">
+    <button class="menubar-btn menubar-btn-search" id="search-btn" title="Search (Ctrl+Space)"><i data-prestige-icon="search"></i></button>
+    <span class="menubar-app">v2.5.0</span>
+    <span class="menubar-item" id="active-window-title">No windows open</span>
+  </div>
+  <div class="menubar-center" id="topdock">
+    <button class="menubar-dock-item" data-section="overview"   data-icon="layout-dashboard" data-label="Overview"   title="System Overview"><i data-prestige-icon="layout-dashboard"></i></button>
+    <button class="menubar-dock-item" data-section="dialogs"    data-icon="message-square"   data-label="Dialogs"    title="Dialogs"><i data-prestige-icon="message-square"></i></button>
+    <button class="menubar-dock-item" data-section="store"      data-icon="database"         data-label="Store"      title="Reactive Store"><i data-prestige-icon="database"></i></button>
+  </div>
+  <div class="menubar-right">
+    <span class="menubar-clock" id="menubar-clock"></span>
+    <button class="menubar-btn" id="lock-btn" title="Lock screen (Ctrl+Shift+L)"><i data-prestige-icon="lock"></i></button>
+    <button class="menubar-btn" id="logout-btn" title="Log out"><i data-prestige-icon="log-out"></i></button>
+  </div>
+</header>
+
+<main class="desktop-canvas" id="desktop-canvas">
+  <div class="desktop-watermark" id="desktop-watermark">
+    <div class="atrium-wordmark">Prestige Web UI</div>
+    <div class="desktop-credit">Modern, Light, Secure</div>
+  </div>
+</main>
+
+<div class="dock-wrap" id="dock-wrap">
+  <nav class="dock" id="dock">
+    <div class="dock-group" id="dock-group-main">
+      <button class="dock-item" data-section="components" data-icon="blocks"          data-label="Components" data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="blocks"></i></span><span class="dock-label">Components</span><span class="dock-dot"></span></button>
+      <button class="dock-item" data-section="controls"   data-icon="sliders-horizontal" data-label="Controls" data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="sliders-horizontal"></i></span><span class="dock-label">Controls</span><span class="dock-dot"></span></button>
+      <button class="dock-item" data-section="forms"      data-icon="text-cursor-input" data-label="Forms"    data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="text-cursor-input"></i></span><span class="dock-label">Forms</span><span class="dock-dot"></span></button>
+      <button class="dock-item" data-section="data"       data-icon="table-properties" data-label="Data"     data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="table-properties"></i></span><span class="dock-label">Data</span><span class="dock-dot"></span></button>
+      <button class="dock-item" data-section="feedback"   data-icon="message-square-more" data-label="Feedback" data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="message-square-more"></i></span><span class="dock-label">Feedback</span><span class="dock-dot"></span></button>
+      <button class="dock-item" data-section="toast"      data-icon="bell"            data-label="Toast"    data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="bell"></i></span><span class="dock-label">Toast</span><span class="dock-dot"></span></button>
+    </div>
+    <div class="dock-group" id="dock-group-right" style="margin-left:auto;">
+      <button class="dock-item" data-section="config" data-icon="settings" data-label="Config" data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="settings"></i></span><span class="dock-label">Config</span><span class="dock-dot"></span></button>
+      <button class="dock-item" data-section="about"  data-icon="info"      data-label="About"  data-color="#fbe482"><span class="dock-icon"><i data-prestige-icon="info"></i></span><span class="dock-label">About</span><span class="dock-dot"></span></button>
+    </div>
+  </nav>
+</div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

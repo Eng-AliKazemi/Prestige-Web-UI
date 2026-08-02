@@ -1,0 +1,132 @@
+:root {
+    /* ── Brand colors ─────────────────────────── */
+    --prestige-primary: #fbe482;
+    --prestige-primary-light: #fbe482;
+    --prestige-primary-dark: #fbe482;
+    --prestige-bg: #ffffff;
+    --prestige-text: #000000;
+    --prestige-text-secondary: #000000;
+    --prestige-success: #10b981;
+    --prestige-success-light: #34d399;
+    --prestige-success-lighter: #6ee7b7;
+    --prestige-success-dark: #059669;
+    --prestige-success-text: #047857;
+    --prestige-on-success: #000000;
+    --prestige-success-soft: rgba(16, 185, 129, 0.08);
+    --prestige-success-soft-hover: rgba(16, 185, 129, 0.15);
+    --prestige-success-border: rgba(16, 185, 129, 0.2);
+    --prestige-warning: #f59e0b;
+    --prestige-warning-text: #92400e;
+    --prestige-on-warning: #000000;
+    --prestige-warning-soft: rgba(245, 158, 11, 0.08);
+    --prestige-warning-border: rgba(245, 158, 11, 0.15);
+    --prestige-danger: #ef4444;
+    --prestige-danger-light: #f87171;
+    --prestige-danger-lighter: #fca5a5;
+    --prestige-danger-dark: #dc2626;
+    --prestige-danger-text: #b91c1c;
+    --prestige-on-danger: #000000;
+    --prestige-danger-soft: rgba(239, 68, 68, 0.08);
+    --prestige-danger-soft-hover: rgba(239, 68, 68, 0.12);
+    --prestige-danger-border: rgba(239, 68, 68, 0.15);
+    --prestige-close: #e81123;
+    --prestige-accent-text: #713f12;
+    --prestige-on-accent: #000000;
+    --prestige-on-dark: #ffffff;
+    --prestige-on-light: #000000;
+
+    /* ── Accent (yellow-gold) ─────────────────── */
+    --prestige-accent: #fbe482;
+    --prestige-accent-04: rgba(251, 228, 130, 0.04);
+    --prestige-accent-05: rgba(251, 228, 130, 0.05);
+    --prestige-accent-06: rgba(251, 228, 130, 0.06);
+    --prestige-accent-08: rgba(251, 228, 130, 0.08);
+    --prestige-accent-10: rgba(251, 228, 130, 0.10);
+    --prestige-accent-12: rgba(251, 228, 130, 0.12);
+    --prestige-accent-14: rgba(251, 228, 130, 0.14);
+    --prestige-accent-15: rgba(251, 228, 130, 0.15);
+    --prestige-accent-16: rgba(251, 228, 130, 0.16);
+    --prestige-accent-18: rgba(251, 228, 130, 0.18);
+    --prestige-accent-20: rgba(251, 228, 130, 0.20);
+    --prestige-accent-22: rgba(251, 228, 130, 0.22);
+    --prestige-accent-25: rgba(251, 228, 130, 0.25);
+    --prestige-accent-30: rgba(251, 228, 130, 0.30);
+    --prestige-accent-32: rgba(251, 228, 130, 0.32);
+    --prestige-accent-35: rgba(251, 228, 130, 0.35);
+    --prestige-accent-40: rgba(251, 228, 130, 0.40);
+    --prestige-accent-45: rgba(251, 228, 130, 0.45);
+    --prestige-accent-50: rgba(251, 228, 130, 0.50);
+    --prestige-accent-55: rgba(251, 228, 130, 0.55);
+    --prestige-accent-60: rgba(251, 228, 130, 0.60);
+    --prestige-accent-70: rgba(251, 228, 130, 0.70);
+    --prestige-accent-75: rgba(251, 228, 130, 0.75);
+    --prestige-accent-85: rgba(251, 228, 130, 0.85);
+    --prestige-accent-90: rgba(251, 228, 130, 0.90);
+
+    /* ── Glass (white overlay) ────────────────── */
+    --prestige-glass-06: rgba(255, 255, 255, 0.06);
+    --prestige-glass-08: rgba(255, 255, 255, 0.08);
+    --prestige-glass-10: rgba(255, 255, 255, 0.10);
+    --prestige-glass-12: rgba(255, 255, 255, 0.12);
+    --prestige-glass-15: rgba(255, 255, 255, 0.15);
+    --prestige-glass-18: rgba(255, 255, 255, 0.18);
+    --prestige-glass-20: rgba(255, 255, 255, 0.20);
+    --prestige-glass-22: rgba(255, 255, 255, 0.22);
+    --prestige-glass-25: rgba(255, 255, 255, 0.25);
+    --prestige-glass-30: rgba(255, 255, 255, 0.30);
+    --prestige-glass-34: rgba(255, 255, 255, 0.34);
+    --prestige-glass-35: rgba(255, 255, 255, 0.35);
+    --prestige-glass-45: rgba(255, 255, 255, 0.45);
+    --prestige-glass-50: rgba(255, 255, 255, 0.50);
+    --prestige-glass-55: rgba(255, 255, 255, 0.55);
+    --prestige-glass-60: rgba(255, 255, 255, 0.60);
+    --prestige-glass-65: rgba(255, 255, 255, 0.65);
+    --prestige-glass-70: rgba(255, 255, 255, 0.70);
+    --prestige-glass-88: rgba(255, 255, 255, 0.88);
+    --prestige-glass-90: rgba(255, 255, 255, 0.90);
+
+    /* ── Shadow / overlay (black) ─────────────── */
+    --prestige-shadow-00: rgba(0, 0, 0, 0.0);
+    --prestige-shadow-03: rgba(0, 0, 0, 0.03);
+    --prestige-shadow-04: rgba(0, 0, 0, 0.04);
+    --prestige-shadow-06: rgba(0, 0, 0, 0.06);
+    --prestige-shadow-08: rgba(0, 0, 0, 0.08);
+    --prestige-shadow-10: rgba(0, 0, 0, 0.10);
+    --prestige-shadow-12: rgba(0, 0, 0, 0.12);
+    --prestige-shadow-14: rgba(0, 0, 0, 0.14);
+    --prestige-shadow-18: rgba(0, 0, 0, 0.18);
+    --prestige-shadow-20: rgba(0, 0, 0, 0.20);
+    --prestige-shadow-22: rgba(0, 0, 0, 0.22);
+    --prestige-shadow-30: rgba(0, 0, 0, 0.30);
+    --prestige-shadow-35: rgba(0, 0, 0, 0.35);
+    --prestige-shadow-40: rgba(0, 0, 0, 0.40);
+    --prestige-shadow-45: rgba(0, 0, 0, 0.45);
+    --prestige-shadow-50: rgba(0, 0, 0, 0.50);
+    --prestige-shadow-55: rgba(0, 0, 0, 0.55);
+    --prestige-shadow-65: rgba(0, 0, 0, 0.65);
+    --prestige-shadow-75: rgba(0, 0, 0, 0.75);
+    --prestige-shadow-85: rgba(0, 0, 0, 0.85);
+    --prestige-shadow-90: rgba(0, 0, 0, 0.90);
+
+    /* ── Legacy aliases (backward compat) ─────── */
+    --prestige-border: rgba(251, 228, 130, 0.18);
+    --prestige-glass-bg: rgba(255, 255, 255, 0.3);
+    --prestige-glass-border: rgba(251, 228, 130, 0.15);
+    --prestige-glass-surface: rgba(251, 228, 130, 0.08);
+    --prestige-glass-input: rgba(255, 255, 255, 0.55);
+    --prestige-accent-soft: rgba(251, 228, 130, 0.08);
+    --prestige-shadow-sm: 0 4px 12px rgba(251, 228, 130, 0.04);
+    --prestige-shadow-md: 0 8px 30px rgba(251, 228, 130, 0.06);
+    --prestige-shadow-lg: 0 16px 40px rgba(251, 228, 130, 0.1);
+
+    /* ── Layout ───────────────────────────────── */
+    --prestige-radius: 12px;
+    --prestige-radius-lg: 18px;
+    --prestige-radius-sm: 8px;
+    --prestige-menubar-height: 40px;
+    --prestige-dock-height: 80px;
+    --prestige-plane-modal: 50000;
+    --prestige-plane-security: 999999;
+    --prestige-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --prestige-font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+}

@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Web UI — Modern, Light Web UI</title>
+<meta name="description" content="Prestige Web UI is a modern, light, secure desktop-style web UI framework designed for the AI era. A zero-dependency, GPU-accelerated desktop shell with draggable windows, dock & menubar, spotlight search, promise-based dialogs, and Web3 transaction guard — delivering a seamless user experience across complex multi-page admin dashboards and enterprise interfaces.">
+<meta name="keywords" content="Prestige Web UI, desktop web UI, admin dashboard, web desktop, window manager, web3, generative AI, GPU, zero dependency, UI framework, enterprise UI, dock, menubar">
+<meta name="author" content="Aran Kazemi">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#fbe482">
+<link rel="canonical" href="https://Eng-AliKazemi.github.io/Prestige-Web-UI/">
+<!-- Geo targeting -->
+<meta name="geo.region" content="IR">
+<meta name="geo.placename" content="Iran">
+<meta name="ICBM" content="32.4279, 53.6880">
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prestige Web UI">
+<meta property="og:title" content="Prestige Web UI — Modern, Light &amp; Secure Desktop UI for the AI Era">
+<meta property="og:description" content="A zero-dependency, desktop web UI framework engineered for Generative AI and Web3. Draggable windows, dock, menubar, spotlight search and hardened security for complex admin dashboards and enterprise interfaces.">
+<meta property="og:url" content="https://eng-AliKazemi.github.io/Prestige-Web-UI/">
+<meta property="og:image" content="images/hero.png">
+<meta property="og:locale" content="en_US">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prestige Web UI — Modern, Secure Desktop UI for the AI Era">
+<meta name="twitter:description" content="A secure, light, modern desktop web UI for generative AI, Web3, admin dashboards and end-user experiences. Zero-dependency, GPU-accelerated, config-driven.">
+<meta name="twitter:image" content="images/hero.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+/* ============================================================
+   PRESTIGE WEB UI, Marketing Page
+   Theme: tokens.css (--prestige-*), accent #fbe482 on white/black
+   Zero dependencies, fully self-contained, GitHub Pages ready.
+   ============================================================ */
+:root {
+  --prestige-accent: #fbe482;
+  --prestige-accent-08: rgba(251,228,130,0.08);
+  --prestige-accent-15: rgba(251,228,130,0.15);
+  --prestige-accent-20: rgba(251,228,130,0.20);
+  --prestige-accent-30: rgba(251,228,130,0.30);
+  --prestige-accent-50: rgba(251,228,130,0.50);
+  --prestige-accent-70: rgba(251,228,130,0.70);
+  --prestige-accent-85: rgba(251,228,130,0.85);
+  --prestige-bg: #ffffff;
+  --prestige-text: #000000;
+  --prestige-border: rgba(251,228,130,0.28);
+  --prestige-success: #10b981;
+  --prestige-warning: #f59e0b;
+  --prestige-danger: #ef4444;
+  --prestige-close: #e81123;
+  --prestige-shadow-06: rgba(0,0,0,0.06);
+  --prestige-shadow-10: rgba(0,0,0,0.10);
+  --prestige-shadow-20: rgba(0,0,0,0.20);
+  --prestige-shadow-30: rgba(0,0,0,0.30);
+  --prestige-shadow-40: rgba(0,0,0,0.40);
+  --prestige-shadow-50: rgba(0,0,0,0.50);
+  --prestige-shadow-85: rgba(0,0,0,0.85);
+  --prestige-radius: 12px;
+  --prestige-radius-lg: 18px;
+  --prestige-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --prestige-font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--prestige-font);
+  background: var(--prestige-bg);
+  color: var(--prestige-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--prestige-accent); color: #000; }
+
+/* ---------- Scroll progress bar ---------- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--prestige-accent), var(--prestige-warning));
+  z-index: 1000; border-radius: 0 2px 2px 0;
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 900;
+  display: flex; align-items: center; gap: 28px;
+  padding: 12px 32px;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--prestige-border);
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -0.2px; }
+.nav-logo {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--prestige-accent);
+  border: 1px solid var(--prestige-accent-70);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px var(--prestige-accent-50);
+}
+.nav-logo svg { width: 16px; height: 16px; stroke: #000; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.nav-links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
+.nav-links a { color: var(--prestige-shadow-85); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: #000; }
+.nav-ghost {
+  border: 1px solid var(--prestige-border); border-radius: 8px; padding: 6px 14px;
+  font-size: 13.5px; font-weight: 600; text-decoration: none; color: #000;
+  transition: all .2s;
+}
+.nav-ghost:hover { background: var(--prestige-accent-15); border-color: var(--prestige-accent-50); }
+.nav-github { display: inline-flex; align-items: center; gap: 8px; }
+.nav-github svg { width: 15px; height: 15px; fill: currentColor; }
+.nav-cta {
+  background: #000; color: #fff; border-radius: 8px; padding: 6px 16px;
+  font-size: 13.5px; font-weight: 600; text-decoration: none;
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+.nav-cta:hover { background: #111; transform: translateY(-1px); box-shadow: 0 6px 18px var(--prestige-shadow-20); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 90px 24px 40px;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--prestige-accent-15) 1px, transparent 1px),
+    linear-gradient(90deg, var(--prestige-accent-15) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 35%, #000 30%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 35%, #000 30%, transparent 72%);
+}
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none; will-change: transform; }
+.orb-1 { width: 460px; height: 460px; background: var(--prestige-accent-50); top: -140px; left: -120px; animation: drift 16s ease-in-out infinite alternate; }
+.orb-2 { width: 380px; height: 380px; background: rgba(245,158,11,0.18); bottom: -120px; right: -100px; animation: drift 20s ease-in-out infinite alternate-reverse; }
+.orb-3 { width: 300px; height: 300px; background: rgba(251,228,130,0.35); top: 40%; left: 62%; animation: drift 24s ease-in-out infinite alternate; }
+@keyframes drift {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to { transform: translate3d(50px,-40px,0) scale(1.15); }
+}
+
+.hero h1 {
+  z-index: 1; font-size: clamp(44px, 8vw, 84px); font-weight: 800; letter-spacing: -3px; line-height: 1.02;
+  margin: 22px 0 6px;
+}
+.hero .gold {
+  background: linear-gradient(120deg, #f7c948 0%, var(--prestige-accent) 45%, #f59e0b 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  position: relative;
+  animation: shimmer 6s linear 1.5s infinite;
+}
+.hero-tagline {
+  z-index: 1;
+  font-size: clamp(22px, 3.4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin: 0 0 26px;
+  animation: fadeUp .8s .28s ease both;
+}
+.hero-sub {
+  z-index: 1; max-width: 640px; font-size: clamp(16px, 2.4vw, 19px); color: var(--prestige-shadow-85);
+  margin-bottom: 34px; animation: fadeUp .8s .16s ease both;
+}
+.hero-ctas { display: flex; gap: 14px; z-index: 1; flex-wrap: wrap; justify-content: center; animation: fadeUp .8s .24s ease both; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 13px 26px; border-radius: 12px; font-size: 15px; font-weight: 700;
+  line-height: 1.2; white-space: nowrap; text-align: center;
+  text-decoration: none; transition: all .22s ease; cursor: pointer; border: 0;
+}
+.btn svg { width: 16px; height: 16px; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.btn-dark { background: #000; color: #fff; box-shadow: 0 10px 28px var(--prestige-shadow-20); }
+.btn-dark:hover { transform: translateY(-2px); box-shadow: 0 16px 38px var(--prestige-shadow-30); background: #141414; }
+.btn-gold {
+  background: linear-gradient(120deg, var(--prestige-accent), #ffe9a0);
+  color: #000; border: 1px solid var(--prestige-accent-70);
+  box-shadow: 0 10px 26px var(--prestige-accent-30);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 16px 34px var(--prestige-accent-50); }
+
+.hero-meta { z-index: 1; margin-top: 30px; display: flex; gap: 26px; flex-wrap: wrap; justify-content: center; font-size: 13px; color: var(--prestige-shadow-85); animation: fadeUp .8s .32s ease both; }
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta b { color: #000; }
+
+.hero-fade {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+
+/* ---------- Marquee strip ---------- */
+.marquee-wrap {
+  border-top: 1px solid var(--prestige-border); border-bottom: 1px solid var(--prestige-border);
+  background: rgba(251,228,130,0.05);
+  overflow: hidden; padding: 18px 0; white-space: nowrap;
+  position: relative;
+}
+.marquee-wrap::before, .marquee-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none; }
+.marquee-wrap::before { left: 0; background: linear-gradient(90deg, #fff, transparent); }
+.marquee-wrap::after { right: 0; background: linear-gradient(-90deg, #fff, transparent); }
+.marquee { display: inline-block; animation: marquee 30s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee span {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 600; color: var(--prestige-shadow-85);
+  padding: 0 34px; position: relative;
+}
+.marquee span svg { width: 16px; height: 16px; stroke: var(--prestige-warning); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Sections ---------- */
+section { padding: 110px 24px; position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.wrap { max-width: 1140px; margin: 0 auto; }
+.section-head { text-align: center; max-width: 980px; margin: 0 auto 60px; }
+.eyebrow {
+  display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--prestige-warning); margin-bottom: 14px;
+  border: 1px solid var(--prestige-border); background: var(--prestige-accent-08);
+  padding: 5px 14px; border-radius: 999px;
+}
+.section-head h2 { font-size: clamp(22px, 3.2vw, 32px); font-weight: 800; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 16px; }
+.section-head p { color: var(--prestige-shadow-85); font-size: 16px; max-width: 660px; margin-inline: auto; }
+
+/* ---------- Gallery ---------- */
+.gallery { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 980px; margin: 0 auto; }
+.shot {
+  margin: 0; border-radius: var(--prestige-radius-lg); overflow: hidden;
+  border: 2px solid var(--prestige-accent-50);
+  box-shadow: 0 24px 48px -16px var(--prestige-shadow-50), 0 0 0 1px rgba(0,0,0,0.05), 0 10px 24px -10px var(--prestige-accent-30);
+  background: #fff; transition: transform .25s ease, box-shadow .25s ease;
+  cursor: zoom-in;
+}
+.shot:hover { transform: translateY(-6px); box-shadow: 0 32px 62px -18px var(--prestige-shadow-50), 0 0 0 1px rgba(0,0,0,0.05), 0 14px 30px -10px var(--prestige-accent-40); }
+.shot img { display: block; width: 100%; height: auto; }
+
+/* ---------- Lightbox (click to zoom) ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 28px; cursor: zoom-out;
+  background: var(--prestige-shadow-85);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: 100%; max-height: 100%;
+  border-radius: var(--prestige-radius);
+  box-shadow: 0 30px 90px -20px var(--prestige-shadow-50);
+  transform: scale(.94); transition: transform .25s ease;
+}
+.lightbox.open img { transform: scale(1); }
+
+/* ---------- Features ---------- */
+.features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+#ai .features { grid-template-columns: repeat(4, 1fr); }
+#web3 .features { grid-template-columns: repeat(3, 1fr); }
+.feature {
+  position: relative; background: #fff; border: 1px solid var(--prestige-border);
+  border-radius: var(--prestige-radius-lg); padding: 26px 22px;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  transform-style: preserve-3d; will-change: transform;
+  overflow: hidden;
+}
+.feature::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; opacity: 0;
+  background: radial-gradient(360px circle at var(--mx,50%) var(--my,50%), var(--prestige-accent-20), transparent 60%);
+  transition: opacity .3s; pointer-events: none;
+}
+.feature:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px var(--prestige-shadow-30); border-color: var(--prestige-accent-50); }
+.feature:hover::before { opacity: 1; }
+.feature-icon {
+  width: 46px; height: 46px; border-radius: 12px; margin-bottom: 18px;
+  background: linear-gradient(150deg, var(--prestige-accent), var(--prestige-accent-50));
+  border: 1px solid var(--prestige-border);
+  display: flex; align-items: center; justify-content: center;
+}
+.feature-icon svg { width: 21px; height: 21px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.feature h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 9px; }
+.feature p { font-size: 14.5px; color: var(--prestige-shadow-85); }
+.feature .tag {
+  position: absolute; top: 22px; right: 22px; font-size: 11px; font-weight: 700;
+  font-family: var(--prestige-font-mono); padding: 3px 9px; border-radius: 999px;
+  background: var(--prestige-accent-08); border: 1px solid var(--prestige-border); color: var(--prestige-shadow-85);
+}
+
+/* ---------- Component showcase ---------- */
+.showcase {
+  background: rgba(251,228,130,0.045);
+  border-top: 1px solid var(--prestige-border); border-bottom: 1px solid var(--prestige-border);
+}
+.showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.demo {
+  background: #fff; border: 1px solid var(--prestige-border); border-radius: var(--prestige-radius-lg);
+  padding: 26px; box-shadow: 0 20px 44px -26px var(--prestige-shadow-20);
+}
+.demo h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.demo h4 code { font-size: 11.5px; color: var(--prestige-warning); font-weight: 600; }
+.demo > p { font-size: 13px; color: var(--prestige-shadow-85); margin-bottom: 18px; }
+
+/* switch */
+.switch-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px dashed var(--prestige-border); }
+.switch-row:last-child { border-bottom: 0; }
+.switch-row .name { font-size: 13.5px; font-weight: 600; }
+.switch-row .state { font-size: 12px; color: var(--prestige-shadow-85); font-family: var(--prestige-font-mono); }
+.switch {
+  width: 42px; height: 24px; border-radius: 999px; border: 1px solid var(--prestige-border);
+  background: #f4f4f4; position: relative; cursor: pointer; transition: background .25s, border-color .25s;
+}
+.switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px var(--prestige-shadow-20); transition: transform .25s cubic-bezier(.3,1.4,.4,1); }
+.switch.on { background: var(--prestige-success); border-color: var(--prestige-success); }
+.switch.on::after { transform: translateX(18px); }
+
+/* progress */
+.demo-progress { height: 9px; border-radius: 6px; background: var(--prestige-accent-15); overflow: hidden; margin: 8px 0; position: relative; }
+.demo-progress span { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, var(--prestige-success), #34d399); transition: width .6s cubic-bezier(.3,1,.4,1); }
+.demo-progress.o span { background: linear-gradient(90deg, var(--prestige-warning), #fbbf24); }
+.demo-progress.g span { background: linear-gradient(90deg, var(--prestige-accent), var(--prestige-warning)); }
+.progress-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--prestige-shadow-85); margin: 6px 0 2px; }
+.progress-row b { color: #000; font-family: var(--prestige-font-mono); }
+
+/* badges */
+.badges { display: flex; flex-wrap: wrap; gap: 10px; }
+.badge {
+  font-size: 12.5px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+  border: 1px solid; display: inline-flex; align-items: center; gap: 6px;
+}
+.badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge.success { color: var(--prestige-success-dark, #059669); background: var(--prestige-success-soft, rgba(16,185,129,.08)); border-color: rgba(16,185,129,.25); }
+.badge.warning { color: #b45309; background: rgba(245,158,11,.1); border-color: rgba(245,158,11,.25); }
+.badge.danger { color: #dc2626; background: rgba(239,68,68,.08); border-color: rgba(239,68,68,.25); }
+.badge.info { color: var(--prestige-shadow-85); background: var(--prestige-accent-08); border-color: var(--prestige-border); }
+
+/* stepper */
+.stepper { display: flex; align-items: center; }
+.step { display: flex; align-items: center; flex: 1; position: relative; }
+.step:not(:last-child)::after { content: ''; position: absolute; top: 50%; left: calc(50% + 18px); right: calc(-50% + 18px); height: 2px; background: var(--prestige-accent-15); }
+.step .circ {
+  width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: #fff; border: 2px solid var(--prestige-border);
+  z-index: 1; transition: all .3s;
+}
+.step.on .circ { background: #000; border-color: #000; color: #fff; transform: scale(1.1); }
+.step.done .circ { background: var(--prestige-success); border-color: var(--prestige-success); color: #fff; }
+.step .lab { position: absolute; top: 38px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; color: var(--prestige-shadow-85); white-space: nowrap; }
+.step.on .lab { color: #000; }
+
+/* avatars */
+.avatars { display: flex; }
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #000;
+  margin-left: -12px; box-shadow: 0 4px 10px var(--prestige-shadow-10);
+}
+.avatar:first-child { margin-left: 0; }
+.avatar.a1 { background: var(--prestige-accent); }
+.avatar.a2 { background: var(--prestige-accent-85); }
+.avatar.a3 { background: #ffe9a0; }
+.avatar.a4 { background: #f7c948; }
+.avatars .more { background: #000; color: #fff; font-size: 12px; }
+
+/* buttons row */
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.mini-btn {
+  padding: 9px 18px; border-radius: 10px; font-size: 13px; font-weight: 700; border: 1px solid transparent; cursor: pointer;
+  transition: transform .18s, box-shadow .2s, background .2s;
+}
+.mini-btn:hover { transform: translateY(-2px); }
+.mini-btn.primary { background: #000; color: #fff; box-shadow: 0 8px 20px var(--prestige-shadow-20); }
+.mini-btn.primary:hover { background: #141414; }
+.mini-btn.gold { background: linear-gradient(120deg, var(--prestige-accent), #ffe9a0); color: #000; border-color: var(--prestige-border); box-shadow: 0 8px 20px var(--prestige-accent-30); }
+.mini-btn.ghost { background: #fff; border-color: var(--prestige-border); color: var(--prestige-shadow-85); }
+.mini-btn.danger { background: rgba(239,68,68,.08); border-color: rgba(239,68,68,.3); color: #dc2626; }
+
+/* ---------- Architecture ---------- */
+.arch {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 34px; border-radius: var(--prestige-radius-lg);
+  border: 1px solid var(--prestige-border);
+  background: linear-gradient(180deg, var(--prestige-accent-08), rgba(255,255,255,0) 60%);
+}
+.backend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; width: 100%; }
+.backend-card {
+  position: relative; overflow: hidden; text-align: left;
+  background: #fff; border: 1px solid var(--prestige-border); border-radius: var(--prestige-radius-lg);
+  padding: 26px 24px; box-shadow: 0 20px 44px -26px var(--prestige-shadow-20);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.backend-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--prestige-accent), var(--prestige-warning));
+  opacity: .9;
+}
+.backend-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -30px var(--prestige-shadow-30); border-color: var(--prestige-accent-50); }
+#backend .backend-card.reveal.in:hover { transform: translateY(-6px); }
+.backend-icon {
+  width: 46px; height: 46px; border-radius: 12px; margin-bottom: 18px;
+  background: linear-gradient(150deg, var(--prestige-accent), var(--prestige-accent-50));
+  border: 1px solid var(--prestige-border);
+  display: flex; align-items: center; justify-content: center;
+}
+.backend-icon svg { width: 22px; height: 22px; stroke: #000; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; animation: floaty 5s ease-in-out infinite; }
+.backend-card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 9px; }
+.backend-card p { font-size: 14px; color: var(--prestige-shadow-85); line-height: 1.6; }
+.backend-code { grid-column: 1 / -1; margin-top: 6px; }
+.backend-code pre { white-space: pre; }
+.arch-box {
+  width: min(560px, 100%); text-align: center; padding: 18px 24px; border-radius: var(--prestige-radius);
+  background: #fff; border: 1px solid var(--prestige-border);
+  box-shadow: 0 14px 34px -22px var(--prestige-shadow-20);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.arch-box:hover { transform: translateY(-4px); box-shadow: 0 22px 44px -22px var(--prestige-shadow-30); }
+.arch-box h4 { font-size: 15px; font-weight: 800; letter-spacing: -0.2px; }
+.arch-box p { font-size: 13px; color: var(--prestige-shadow-85); }
+.arch-box.gold { background: linear-gradient(120deg, var(--prestige-accent), #ffe9a0); border-color: var(--prestige-accent-70); }
+.arch-box.gold p { color: #000; }
+.arch-arrow { color: var(--prestige-warning); font-size: 20px; animation: bounceDown 1.8s ease infinite; }
+@keyframes bounceDown { 50% { transform: translateY(5px); } }
+.arch-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 560px; }
+.arch-row .arch-box { padding: 14px 10px; }
+.arch-legend { margin-top: 26px; display: flex; gap: 26px; justify-content: center; flex-wrap: wrap; font-size: 13px; color: var(--prestige-shadow-85); }
+.arch-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+
+/* ---------- Theming ---------- */
+.theme-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.swatch {
+  border: 1px solid var(--prestige-border); border-radius: var(--prestige-radius);
+  padding: 10px 10px 14px; text-align: center; background: #fff;
+  transition: transform .2s, box-shadow .2s;
+}
+.swatch:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -22px var(--prestige-shadow-30); }
+.swatch .chip { height: 56px; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.06); }
+.swatch .hex { font-family: var(--prestige-font-mono); font-size: 11px; font-weight: 700; }
+.swatch .nm { font-size: 11px; color: var(--prestige-shadow-85); margin-top: 2px; }
+.code-block {
+  position: relative; margin-top: 26px; border-radius: var(--prestige-radius);
+  background: #0c0c0c; color: #f3f3f3; overflow: hidden;
+  border: 1px solid var(--prestige-shadow-20);
+}
+.code-block .bar { display: flex; align-items: center; gap: 7px; padding: 11px 16px; background: #151515; border-bottom: 1px solid #262626; }
+.code-block .bar i { width: 10px; height: 10px; border-radius: 50%; }
+.code-block .bar i:nth-child(1) { background: var(--prestige-close); }
+.code-block .bar i:nth-child(2) { background: var(--prestige-warning); }
+.code-block .bar i:nth-child(3) { background: var(--prestige-success); }
+.code-block .bar .fname { margin-left: 8px; font-family: var(--prestige-font-mono); font-size: 12px; color: #999; }
+.code-block pre { padding: 18px 20px; overflow-x: auto; font-family: var(--prestige-font-mono); font-size: 13px; line-height: 1.7; }
+.code-block pre .k { color: #fbbf24; }
+.code-block pre .s { color: #a5d6a7; }
+.code-block pre .c { color: #6b7280; font-style: italic; }
+.copy-btn {
+  position: absolute; top: 10px; right: 12px; z-index: 3;
+  background: #2a2a2a; color: #eee; border: 1px solid #3a3a3a; border-radius: 8px;
+  padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s;
+}
+.copy-btn:hover { background: #3a3a3a; border-color: var(--prestige-accent-50); }
+.copy-btn.copied { background: var(--prestige-success); color: #fff; border-color: var(--prestige-success); }
+
+/* ---------- Quick start ---------- */
+.quick {
+  background: rgba(251,228,130,0.045);
+  border-top: 1px solid var(--prestige-border); border-bottom: 1px solid var(--prestige-border);
+}
+.tabs { display: flex; gap: 6px; margin-bottom: 16px; }
+.tab {
+  padding: 8px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
+  background: #fff; border: 1px solid var(--prestige-border); color: var(--prestige-shadow-85);
+  cursor: pointer; transition: all .2s;
+}
+.tab.active { background: #000; color: #fff; border-color: #000; box-shadow: 0 8px 20px var(--prestige-shadow-20); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; animation: fadeUp .4s ease; }
+.code-block.big pre { font-size: 12.5px; }
+.lang-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 40px; }
+.lang-chip {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--prestige-border); font-size: 13.5px; font-weight: 700;
+  transition: all .2s;
+}
+.lang-chip:hover { border-color: var(--prestige-accent-50); background: var(--prestige-accent-08); transform: translateY(-2px); }
+.lang-chip i { width: 10px; height: 10px; border-radius: 3px; background: var(--prestige-accent); }
+
+/* ---------- CTA ---------- */
+.cta-banner {
+  max-width: 1100px; margin: 0 auto; text-align: center; position: relative;
+  border-radius: 28px; overflow: hidden; padding: 92px 56px;
+  background: linear-gradient(130deg, #000 0%, #1a1a1a 100%);
+  color: #fff; box-shadow: 0 40px 90px -30px var(--prestige-shadow-30);
+}
+.cta-banner::before {
+  content: ''; position: absolute; inset: -40%; z-index: 0;
+  background: conic-gradient(from 0deg, transparent 0 340deg, var(--prestige-accent) 350deg, transparent 360deg);
+  animation: spin 8s linear infinite; opacity: .5;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.cta-inner { position: relative; z-index: 1; }
+.cta-banner h2 { font-size: clamp(28px, 4vw, 46px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 18px; }
+.cta-banner p { color: rgba(255,255,255,0.7); font-size: 18px; max-width: 640px; margin: 0 auto 34px; line-height: 1.5; }
+.cta-banner .btn-gold { box-shadow: 0 14px 40px var(--prestige-accent-50); }
+
+/* ---------- Footer ---------- */
+footer {
+  border-top: 1px solid var(--prestige-border); padding: 56px 24px 40px;
+  background: #fff;
+}
+.foot-grid { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 36px; }
+.foot-brand { font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.foot-desc { font-size: 13.5px; color: var(--prestige-shadow-85); max-width: 260px; }
+.foot-col h5 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--prestige-shadow-85); margin-bottom: 14px; }
+.foot-col a { display: block; color: var(--prestige-shadow-85); text-decoration: none; font-size: 13.5px; padding: 4px 0; transition: color .2s; }
+.foot-col a:hover { color: #000; }
+.foot-bottom { max-width: 1140px; margin: 44px auto 0; padding-top: 22px; border-top: 1px solid var(--prestige-border); display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: var(--prestige-shadow-85); flex-wrap: wrap; gap: 10px; }
+.foot-bottom span { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; line-height: 1.6; }
+.foot-bottom a { text-decoration: none; }
+.fb-link { color: #000; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; }
+.fb-link svg { width: 13px; height: 13px; fill: currentColor; flex: none; }
+.foot-bottom b { color: #000; }
+
+/* ---------- Hover micro-interactions ---------- */
+.feature-icon { transition: transform .3s cubic-bezier(.3,1.4,.4,1); }
+.feature:hover .feature-icon { transform: translateY(-3px) scale(1.08) rotate(-5deg); }
+.shot img { transition: transform .45s cubic-bezier(.2,.7,.3,1); }
+.shot:hover img { transform: scale(1.035); }
+.demo { transition: transform .3s ease, box-shadow .3s ease; }
+.demo:hover { transform: translateY(-5px); box-shadow: 0 26px 52px -26px var(--prestige-shadow-30); }
+.swatch .chip { transition: transform .25s cubic-bezier(.3,1.4,.4,1); }
+.swatch:hover .chip { transform: scale(1.1) translateY(-2px); }
+.tab:hover { transform: translateY(-2px); }
+.lang-chip i { transition: transform .3s cubic-bezier(.3,1.4,.4,1); }
+.lang-chip:hover i { transform: scale(1.25) rotate(90deg); }
+
+/* ---------- Reveal animations, six distinct choreographies ---------- */
+.reveal { opacity: 0; will-change: transform, opacity, filter, clip-path; }
+.reveal.in { opacity: 1; transform: none; filter: none; clip-path: inset(0 0 0 0); }
+
+/* 1 · soft rise (default) */
+.reveal-fade { transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+/* 2 · curtain wipe from bottom */
+.reveal-wipe { transform: translateY(28px); clip-path: inset(0 0 100% 0); transition: clip-path 1s cubic-bezier(.2,.7,.3,1), transform 1s cubic-bezier(.2,.7,.3,1), opacity .4s ease; }
+/* 3 · defocus pop-in */
+.reveal-blur { filter: blur(14px) saturate(.5); transform: scale(1.1); opacity: .3; transition: filter .9s cubic-bezier(.2,.7,.3,1), transform .9s cubic-bezier(.2,.7,.3,1), opacity .9s ease; }
+/* 4 · 3D fold-down */
+.reveal-fold { transform: perspective(1200px) rotateX(-32deg) translateY(44px); transform-origin: top center; transition: transform 1s cubic-bezier(.2,.7,.3,1), opacity .8s ease; }
+/* 5 · lateral sweep (left/right) */
+.reveal-slide { transform: translateX(64px); transition: transform .85s cubic-bezier(.2,.7,.3,1), opacity .85s ease; }
+.reveal-slide-left { transform: translateX(-64px); transition: transform .85s cubic-bezier(.2,.7,.3,1), opacity .85s ease; }
+/* 6 · card flip-in */
+.reveal-spin { transform: perspective(1200px) rotateX(70deg) translateY(56px); transform-origin: bottom center; transition: transform .95s cubic-bezier(.2,.7,.3,1), opacity .8s ease; }
+
+.reveal.d1 { transition-delay: .06s; }
+.reveal.d2 { transition-delay: .12s; }
+.reveal.d3 { transition-delay: .18s; }
+.reveal.d4 { transition-delay: .24s; }
+
+/* cards pop harder while scrolling fast */
+body.is-fast .feature, body.is-fast .demo, body.is-fast .shot {
+  box-shadow: 0 10px 26px -12px var(--prestige-shadow-40), 0 36px 70px -30px var(--prestige-shadow-30);
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Word-by-word hero title ---------- */
+.hero h1 .word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .12em; margin-bottom: -.12em; }
+.hero h1 .word > span { display: inline-block; animation: wordRise .95s cubic-bezier(.2,.7,.3,1) both; }
+.hero h1 .word:nth-child(2n) > span { animation-delay: .06s; }
+.hero h1 .word:nth-child(3n) > span { animation-delay: .12s; }
+@keyframes wordRise { from { transform: translateY(108%) skewY(5deg); filter: blur(7px); opacity: 0; } to { transform: translateY(0) skewY(0); filter: blur(0); opacity: 1; } }
+@keyframes shimmer { from { background-position: 0% 0; } to { background-position: -220% 0; } }
+
+/* ---------- Morphing hero orbs ---------- */
+.orb { animation: blob 16s ease-in-out infinite alternate; }
+.orb-1 { animation-name: blob, driftA; }
+.orb-2 { animation-name: blob, driftB; animation-delay: -5s, 0s; }
+.orb-3 { animation-name: blob, driftC; animation-delay: -9s, 0s; }
+@keyframes blob {
+  0%   { border-radius: 42% 58% 55% 45% / 50% 44% 56% 50%; }
+  50%  { border-radius: 55% 45% 42% 58% / 44% 58% 42% 56%; }
+  100% { border-radius: 45% 55% 58% 42% / 58% 44% 56% 42%; }
+}
+@keyframes driftA { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(70px,-50px,0) scale(1.18); } }
+@keyframes driftB { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-60px,44px,0) scale(1.12); } }
+@keyframes driftC { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-44px,-32px,0) scale(1.22); } }
+
+/* ---------- Feature card shine sweep ---------- */
+.feature::after {
+  content: ''; position: absolute; top: 0; left: -80%; width: 55%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: skewX(-18deg); pointer-events: none;
+  transition: left .75s cubic-bezier(.2,.7,.3,1);
+}
+.feature:hover::after { left: 135%; }
+
+/* ---------- Floating feature icons ---------- */
+.feature-icon svg { animation: floaty 5s ease-in-out infinite; }
+.feature:nth-child(2n) .feature-icon svg { animation-delay: -2.4s; animation-duration: 6.4s; }
+.feature:nth-child(3n) .feature-icon svg { animation-delay: -1.1s; animation-duration: 5.4s; }
+@keyframes floaty { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-6px) rotate(-4deg); } }
+
+/* ---------- Magnetic buttons ---------- */
+.magnetic { transition: transform .28s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease, background .22s ease; will-change: transform; }
+
+/* ---------- Marquee wakes up on hover ---------- */
+.marquee-wrap:hover .marquee { animation-duration: 9s; }
+
+/* ---------- Gallery 3D tilt ---------- */
+.shot { perspective: 1100px; }
+
+/* ---------- CTA breathing glow ---------- */
+.cta-banner::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(58% 58% at 50% 50%, var(--prestige-accent-30), transparent 70%);
+  animation: pulseGlow 4.5s ease-in-out infinite;
+}
+@keyframes pulseGlow { 0%,100% { opacity: .3; } 50% { opacity: .85; } }
+
+/* ---------- Cursor glow (hero only) ---------- */
+.cursor-glow {
+  position: fixed; top: 0; left: 0; width: 340px; height: 340px;
+  border-radius: 50%; background: radial-gradient(circle, var(--prestige-accent-30), transparent 65%);
+  mix-blend-mode: multiply; pointer-events: none; z-index: 5;
+  opacity: 0; transition: opacity .35s ease;
+}
+@media (pointer: coarse) { .cursor-glow { display: none; } }
+
+/* ---------- Live demo frame ---------- */
+.demo-frame {
+  position: relative; border-radius: var(--prestige-radius-lg); overflow: hidden;
+  border: 1px solid var(--prestige-border);
+  box-shadow: 0 40px 90px -30px var(--prestige-shadow-30), 0 0 0 1px rgba(0,0,0,0.03);
+  background: #0a0a0a;
+}
+.demo-frame .frame-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; background: #151515; border-bottom: 1px solid #262626;
+}
+.demo-frame .frame-bar i { width: 11px; height: 11px; border-radius: 50%; }
+.demo-frame .frame-bar i:nth-child(1) { background: var(--prestige-close); }
+.demo-frame .frame-bar i:nth-child(2) { background: var(--prestige-warning); }
+.demo-frame .frame-bar i:nth-child(3) { background: var(--prestige-success); }
+.demo-frame .frame-bar .fname { margin-left: 8px; font-family: var(--prestige-font-mono); font-size: 12px; color: #999; }
+.demo-frame img { display: block; width: 100%; height: auto; }
+.demo-cta {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border-radius: 8px;
+  background: linear-gradient(120deg, var(--prestige-accent), #ffe9a0);
+  color: #000; border: 1px solid var(--prestige-accent-70); text-decoration: none;
+  font-size: 12px; font-weight: 700; flex: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.demo-cta svg { width: 14px; height: 14px; stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.demo-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 16px var(--prestige-accent-40); }
+.demo-shot { display: block; transition: transform .25s ease, box-shadow .25s ease; }
+.demo-shot:hover { transform: translateY(-4px); }
+.demo-shot:focus-visible { outline: 3px solid var(--prestige-accent-70); outline-offset: 2px; }
+
+@media (max-width: 1000px) {
+  .features, #ai .features, #web3 .features { grid-template-columns: repeat(2, 1fr); }
+  .showcase-grid { grid-template-columns: repeat(2, 1fr); }
+  .theme-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  section { padding: 80px 18px; }
+  .backend-grid { grid-template-columns: 1fr; }
+  .showcase-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .features, #ai .features, #web3 .features { grid-template-columns: 1fr; }
+  .theme-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <a href="#top" class="nav-brand" style="text-decoration:none;color:#000">
+    <span class="nav-logo">
+      <svg viewBox="0 0 24 24"><path d="M9 4v16M9 4h6M15 4v8M9 12h6"/></svg>
+    </span>
+    Prestige Web UI
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#ai">AI</a>
+    <a href="#web3">Web3</a>
+    <a href="#components">Components</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#backend">Backend</a>
+    <a href="#theming">Theming</a>
+    <a href="#quickstart">Quick Start</a>
+  </div>
+  <a class="nav-ghost nav-github" href="https://github.com/Eng-AliKazemi/Prestige-Web-UI" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    GitHub
+  </a>
+  <a class="nav-ghost" href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/docs/PRESTIGE.md" target="_blank" rel="noopener">Blueprint</a>
+  <a class="nav-cta" href="#quickstart">Get Started</a>
+</nav>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-fade">
+    <div class="hero-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <h1>Prestige Web UI</h1>
+    <p class="hero-tagline"><span class="gold">Modern, Light, Secure</span></p>
+
+    <p class="hero-sub">
+      Prestige Web UI is a new web UI designed to provide a modern, easy-to-use,
+      feature-rich user experience for web administration and organizational users,
+      especially <b>Generative AI</b> and <b>Web3</b>.
+    </p>
+
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="#quickstart">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        Get Started
+      </a>
+      <a class="btn btn-dark" href="#features">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        Explore Features
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <span>⚡ <b>141 kB</b> JS + 74 kB CSS</span>
+      <span>🖥 <b>28+</b> components</span>
+      <span>🎨 <b>119</b> theme tokens</span>
+      <span>🛡 <b>178</b> passing tests</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================= LIVE DEMO ================= -->
+<section class="showcase" id="demo">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Live Demo</span>
+      <h2>Intuitive Desktop Like Web UI</h2>
+      <p>Live Preview of the Web UI</p>
+    </div>
+
+    <div class="demo-frame reveal">
+      <div class="frame-bar"><i></i><i></i><i></i><span class="fname">LIVE DEMO</span>
+        <a class="demo-cta" href="demo/index.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          Click to View Live Demo
+        </a>
+      </div>
+      <a class="demo-shot" href="demo/index.html" target="_blank" rel="noopener" title="Open the live demo" aria-label="Open the live Prestige Web UI demo">
+        <img src="images/hero.png" alt="Prestige Web UI desktop preview, click to view the live demo" loading="lazy" width="1920" height="946">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee">
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Window Manager</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Magnet Snap</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Spotlight Search</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> FLIP Animations</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Reactive Store</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Shake to Minimize</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> Web3 Guard</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> DisposalStack Memory</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> GPU Compositing</span>
+    <span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg> HTMX Ready</span>
+  </div>
+</div>
+
+<!-- ================= FEATURES ================= -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Features</span>
+      <h2>Everything you expect from a desktop. Nothing you don't.</h2>
+      <p>Every feature is config-driven, disable anything at runtime with a single boolean.</p>
+    </div>
+
+    <div class="features" data-cascade>
+      <article class="feature reveal"><span class="tag">window</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <h3>Window Manager</h3>
+        <p>Draggable, 8-direction resizable windows with cascade positioning, FLIP animations, and Ctrl+` switcher with live thumbnails.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">dock</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="10" rx="4"/><circle cx="8" cy="14" r="1.4" fill="#000" stroke="none"/><circle cx="12" cy="14" r="1.4" fill="#000" stroke="none"/><circle cx="16" cy="14" r="1.4" fill="#000" stroke="none"/></svg></div>
+        <h3>Dock & Top Dock</h3>
+        <p>Bottom launcher with bounce animations, a circular top menubar, drag-and-drop reordering, and cross-zone placement.</p>
+      </article>
+
+      <article class="feature reveal d2"><span class="tag">Ctrl+Space</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+        <h3>Spotlight Search</h3>
+        <p>A spotlight-style overlay with keyboard navigation to launch apps and find content instantly, offline and snappy.</p>
+      </article>
+
+      <article class="feature reveal"><span class="tag">8 dialogs</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></div>
+        <h3>Promise-Based Dialogs</h3>
+        <p>Info, warning, danger, confirm, prompt, save, open, plus custom modals, side drawers, and a Web3 transaction guard.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">Memory</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M4 9h2M4 15h2M18 9h2M18 15h2M9 4v2M15 4v2M9 18v2M15 18v2"/></svg></div>
+        <h3>Deterministic Memory Engine</h3>
+        <p>DisposalStack LIFO teardown and affine Owned handles, timers, sockets, and listeners are reclaimed on window close.</p>
+      </article>
+
+      <article class="feature reveal d2"><span class="tag">XSS</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/></svg></div>
+        <h3>Security By Default</h3>
+        <p>Text-first rendering, a TreeWalker HTML sanitizer, strict app-ID validation, secret zeroing, and a credential guard.</p>
+      </article>
+
+      <article class="feature reveal"><span class="tag">GPU</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 7h18v10H3z"/><path d="M7 10v4M11 10v4M15 10v4M19 10v4"/></svg></div>
+        <h3>GPU Compositing First</h3>
+        <p>Hardware-accelerated layers, selective backdrop blur on focused windows, and paint-boundary isolation for smooth 60fps.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">Store</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+        <h3>Reactive Store + SWR</h3>
+        <p>Proxy-based reactive state with two-way input binding, persisted localStorage, stale-while-revalidate caching, and URL sync.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Screenshots</span>
+      <h2>See Prestige Web UI in action.</h2>
+      <p>Real captures of the shell, windows, dock, menubar, and the desktop canvas.</p>
+    </div>
+
+    <div class="gallery" data-cascade>
+      <figure class="shot reveal"><img src="images/image_1.png" alt="Prestige Web UI desktop screenshot" loading="lazy" width="1920" height="943"></figure>
+      <figure class="shot reveal d1"><img src="images/image_2.png" alt="Prestige Web UI desktop screenshot" loading="lazy" width="1920" height="946"></figure>
+      <figure class="shot reveal d2"><img src="images/image_3.png" alt="Prestige Web UI desktop screenshot" loading="lazy" width="1920" height="946"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GENERATIVE AI ================= -->
+<section id="ai">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Generative AI</span>
+      <h2>Built for realtime AI dashboards. And the teams behind them.</h2>
+      <p>Prestige Web UI is designed to develop advanced realtime AI dashboards and organizational user interfaces, streaming, monitoring, orchestration, and admin surfaces that feel native.</p>
+    </div>
+
+    <div class="features" data-cascade>
+      <article class="feature reveal"><span class="tag">stream</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M5 5a10 10 0 0 1 14 0"/><path d="M8 8a6 6 0 0 1 8 0"/></svg></div>
+        <h3>Realtime Token Streaming</h3>
+        <p>Render streaming LLM output without jank, paint-boundary isolation keeps each window reflowing independently.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">live</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+        <h3>Live Inference Dashboards</h3>
+        <p>GPU-composited charts and gauges that update in place, with SWR stale-while-revalidate keeping model telemetry fresh.</p>
+      </article>
+
+      <article class="feature reveal d2"><span class="tag">agents</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 7l4 9M17 7l-4 9"/></svg></div>
+        <h3>Agent Orchestration</h3>
+        <p>Multi-window consoles for concurrent agents, dock, stack, snap, and switch between running AI workflows.</p>
+      </article>
+
+      <article class="feature reveal d3"><span class="tag">RAG</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></svg></div>
+        <h3>RAG &amp; Vector Panels</h3>
+        <p>Knowledge-retrieval views with reactive state binding and two-way input sync across embedded apps.</p>
+      </article>
+
+      <article class="feature reveal"><span class="tag">studio</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div>
+        <h3>Prompt &amp; Model Studio</h3>
+        <p>Pre-sized windows for prompts, models, memory, routing, and guards, a full AI/ML console layout out of the box.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">org</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Organizational UIs</h3>
+        <p>Teams, users, audit, limits, and feedback windows, enterprise admin surfaces that feel like a native desktop.</p>
+      </article>
+
+      <article class="feature reveal d2"><span class="tag">eval</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M6 3v12M18 9v9"/><path d="M6 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM18 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM6 21a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg></div>
+        <h3>Fine-Tuning &amp; Evaluation</h3>
+        <p>Compare training runs side-by-side with resizable windows, metric cards, and A/B evaluation panels.</p>
+      </article>
+
+      <article class="feature reveal d3"><span class="tag">multi</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 9l-6 3 6 3z"/></svg></div>
+        <h3>Multimodal Playground</h3>
+        <p>Inline image, audio, and video previews with GPU-composited layers and zero-dependency rendering.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WEB3 ================= -->
+<section class="showcase" id="web3">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Web3</span>
+      <h2>Secure Web3 interfaces, hardened by default.</h2>
+      <p>Prestige Web UI is optimized for secure web3, transaction confirmation guards, secret hygiene, and defense-in-depth XSS protections built into the shell itself.</p>
+    </div>
+
+    <div class="features" data-cascade>
+      <article class="feature reveal"><span class="tag">Guard</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Transaction Confirmation Guard</h3>
+        <p>web3TransactionGuard() renders a high-security overlay on its own z-plane, a MutationObserver rejects any injected DOM tampering before approval.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">safe</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Clickjacking Defense</h3>
+        <p>isElementVisuallySafe() verifies the confirm button is the actual top-most element at the click point before a transaction passes.</p>
+      </article>
+
+      <article class="feature reveal d2"><span class="tag">secrets</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L21 2M15 8l3 3"/></svg></div>
+        <h3>Secret Zeroing</h3>
+        <p>ownSecret() tracks credential buffers and zero-fills them on disposal, no private key or seed survives in memory after teardown.</p>
+      </article>
+
+      <article class="feature reveal d3"><span class="tag">credentials</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h3>Credential Guard</h3>
+        <p>createStore() refuses to persist keys named token, secret, password, session, or cookie, credentials never leak into localStorage.</p>
+      </article>
+
+      <article class="feature reveal"><span class="tag">bigint</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h3.5a1.5 1.5 0 0 1 0 3H11a1.5 1.5 0 0 0 0 3h3.5"/></svg></div>
+        <h3>BigInt Precision</h3>
+        <p>Transaction values are always bigint in wei, never floats, so amounts survive at full precision across every path.</p>
+      </article>
+
+      <article class="feature reveal d1"><span class="tag">XSS</span>
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12"/></svg></div>
+        <h3>XSS Defense-in-Depth</h3>
+        <p>Text-first rendering, a strict TreeWalker sanitizer, URL schemes allowlist, and app-ID validation guard every input surface.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPONENTS ================= -->
+<section class="showcase" id="components">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Components</span>
+      <h2>28+ primitives, live.</h2>
+      <p>Extendable via a component registry, every widget is a DOM node you can compose, theme, and ship.</p>
+    </div>
+
+    <div class="showcase-grid" data-cascade>
+      <div class="demo reveal">
+        <h4>Toggles <code>createSwitch</code></h4>
+        <p>Proxy-backed reactive switches with animated knobs.</p>
+        <div class="switch-row"><span class="name">Notifications</span><button class="switch" data-sr data-label="notifications"></button></div>
+        <div class="switch-row"><span class="name">Autosave</span><button class="switch on" data-sr data-label="autosave"></button></div>
+        <div class="switch-row"><span class="name">Dark mode</span><button class="switch" data-sr data-label="darkmode"></button></div>
+      </div>
+
+      <div class="demo reveal d1">
+        <h4>Progress <code>createProgressBar</code></h4>
+        <p>Animated progress bars, 0 to 100% on demand.</p>
+        <div class="progress-row"><span>Upload</span><b id="p1val">0%</b></div>
+        <div class="demo-progress"><span id="p1"></span></div>
+        <div class="progress-row"><span>Processing</span><b id="p2val">0%</b></div>
+        <div class="demo-progress o"><span id="p2"></span></div>
+        <div class="progress-row"><span>Render</span><b id="p3val">0%</b></div>
+        <div class="demo-progress g"><span id="p3"></span></div>
+      </div>
+
+      <div class="demo reveal d2">
+        <h4>Badges <code>createBadge</code></h4>
+        <p>Semantic status chips in every tone.</p>
+        <div class="badges">
+          <span class="badge success">Active</span>
+          <span class="badge warning">Pending</span>
+          <span class="badge danger">Blocked</span>
+          <span class="badge info">New</span>
+          <span class="badge success">Live</span>
+          <span class="badge info">v2.5</span>
+        </div>
+      </div>
+
+      <div class="demo reveal">
+        <h4>Stepper <code>createStepper</code></h4>
+        <p>Track multi-stage workflows. <span class="state" style="font-family:var(--prestige-font-mono);font-size:11px;color:var(--prestige-shadow-85)">Click a step</span></p>
+        <div class="stepper" id="stepper">
+          <div class="step on" data-step="0"><span class="circ">1</span><span class="lab">Draft</span></div>
+          <div class="step" data-step="1"><span class="circ">2</span><span class="lab">Review</span></div>
+          <div class="step" data-step="2"><span class="circ">3</span><span class="lab">Publish</span></div>
+        </div>
+      </div>
+
+      <div class="demo reveal d1">
+        <h4>Avatars <code>createAvatar</code></h4>
+        <p>Stacked team avatars with gradient tones.</p>
+        <div class="avatars">
+          <span class="avatar a1">AL</span>
+          <span class="avatar a2">SM</span>
+          <span class="avatar a3">JR</span>
+          <span class="avatar a4">KP</span>
+          <span class="avatar more">+42</span>
+        </div>
+      </div>
+
+      <div class="demo reveal d2">
+        <h4>Buttons <code>createBtn</code></h4>
+        <p>Variants used across the shell and your apps.</p>
+        <div class="btn-row">
+          <button class="mini-btn primary">Primary</button>
+          <button class="mini-btn gold">Accent</button>
+          <button class="mini-btn ghost">Ghost</button>
+          <button class="mini-btn danger">Danger</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ARCHITECTURE ================= -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Architecture</span>
+      <h2>Built like a tower, not a tree.</h2>
+      <p>Five layers of purpose-built engineering, each module owns one responsibility.</p>
+    </div>
+
+    <div class="arch">
+      <div class="arch-box gold reveal"><h4>Host Application</h4><p>Any backend, Django, Flask, Rails, Laravel, FastAPI, HTMX, or plain static HTML.</p></div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-box reveal"><h4>Prestige Engine</h4><p>Window Manager · State & SWR Store · Component Registry</p></div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-box reveal"><h4>Memory Engine</h4><p>DisposalStack LIFO cleanup · Owned affine single-ownership</p></div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-box reveal"><h4>Security Layer</h4><p>Text-by-default escaping · TreeWalker sanitizer · App-ID guard</p></div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-row">
+        <div class="arch-box reveal d1"><h4>CSS Tokens</h4><p>105+ variables</p></div>
+        <div class="arch-box reveal d2"><h4>GPU Layers</h4><p>Compositing-first</p></div>
+        <div class="arch-box reveal d3"><h4>Theme Layers</h4><p>Zero hardcoded colors</p></div>
+      </div>
+    </div>
+
+    <div class="arch-legend reveal">
+      <span><i style="background:#000"></i>Classic static site</span>
+      <span><i style="background:var(--prestige-success)"></i>Backend-driven admin</span>
+      <span><i style="background:var(--prestige-warning)"></i>SPA / client-side app</span>
+      <span><i style="background:var(--prestige-danger)"></i>HTMX</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BACKEND & TYPESCRIPT ================= -->
+<section class="showcase" id="backend">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Backend · TypeScript</span>
+      <h2>Reliability and security, enforced by the compiler.</h2>
+      <p>Prestige UI's backend is authored entirely in strict TypeScript. The compiler rejects whole classes of bugs before they ship, and the build emits standalone, zero-dependency JavaScript, so the shell is dependable and secure by construction.</p>
+    </div>
+
+    <div class="backend-grid" data-cascade>
+      <article class="backend-card reveal">
+        <div class="backend-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M8 15h8l-1 7H9l-1-7z"/><path d="M12 2l6.5 4-6.5 4L5.5 6 12 2z"/></svg></div>
+        <h3>Compiler-enforced reliability</h3>
+        <p>Strict mode gates, noImplicitAny, strictNullChecks, exactOptionalPropertyTypes, noUnusedLocals, make the compiler reject bugs at build time, not runtime.</p>
+      </article>
+
+      <article class="backend-card reveal d1">
+        <div class="backend-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Secure by default</h3>
+        <p>Text-first rendering, a TreeWalker HTML sanitizer, URL scheme allowlists, and app-ID validation guard every input surface against XSS.</p>
+      </article>
+
+      <article class="backend-card reveal d2">
+        <div class="backend-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M4 9h2M4 15h2M18 9h2M18 15h2M9 4v2M15 4v2M9 18v2M15 18v2"/></svg></div>
+        <h3>Deterministic memory</h3>
+        <p>DisposalStack LIFO teardown and Owned affine handles, timers, sockets, and listeners are reclaimed the moment a window closes.</p>
+      </article>
+
+      <article class="backend-card reveal d3">
+        <div class="backend-icon"><svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/><path d="M14 4l-4 16"/></svg></div>
+        <h3>Zero-dependency output</h3>
+        <p>TypeScript never ships to your users. The backend compiles to pure vanilla JS + CSS, nothing to install, audit, or vendor at runtime.</p>
+      </article>
+
+      <div class="backend-code code-block reveal">
+        <button class="copy-btn" data-copy="codeBackend">Copy</button>
+        <div class="bar"><i></i><i></i><i></i><span class="fname">typescript/tsconfig.json + AppManifest</span></div>
+        <pre id="codeBackend"><span class="c">// Strict backend contract, ships as plain JS + CSS</span>
+{
+  <span class="k">"compilerOptions"</span>: {
+    <span class="k">"strict"</span>: <span class="s">true</span>,
+    <span class="k">"noImplicitAny"</span>: <span class="s">true</span>,
+    <span class="k">"strictNullChecks"</span>: <span class="s">true</span>,
+    <span class="k">"exactOptionalPropertyTypes"</span>: <span class="s">true</span>,
+    <span class="k">"noUnusedLocals"</span>: <span class="s">true</span>,
+    <span class="k">"target"</span>: <span class="s">"ES2022"</span>
+  }
+}
+
+<span class="c">// Typed contract shared by every registered app</span>
+<span class="k">interface</span> AppManifest {
+  title: <span class="k">string</span>;
+  icon: <span class="k">string</span>;
+  placement: <span class="s">'dock'</span> | <span class="s">'topdock'</span> | <span class="s">'hidden'</span> | <span class="s">'both'</span>;
+  content: (appId: <span class="k">string</span>) =&gt; HTMLElement;
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THEMING ================= -->
+<section id="theming">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Theming</span>
+      <h2>Every color, one token.</h2>
+      <p>119 CSS custom properties drive the entire shell. Change one variable, the whole desktop follows.</p>
+    </div>
+
+    <div class="theme-grid reveal">
+      <div class="swatch"><div class="chip" style="background:#fbe482"></div><div class="hex">#fbe482</div><div class="nm">--prestige-accent</div></div>
+      <div class="swatch"><div class="chip" style="background:#ffffff"></div><div class="hex">#ffffff</div><div class="nm">--prestige-bg</div></div>
+      <div class="swatch"><div class="chip" style="background:#000000"></div><div class="hex">#000000</div><div class="nm">--prestige-text</div></div>
+      <div class="swatch"><div class="chip" style="background:#10b981"></div><div class="hex">#10b981</div><div class="nm">--prestige-success</div></div>
+      <div class="swatch"><div class="chip" style="background:#f59e0b"></div><div class="hex">#f59e0b</div><div class="nm">--prestige-warning</div></div>
+      <div class="swatch"><div class="chip" style="background:#ef4444"></div><div class="hex">#ef4444</div><div class="nm">--prestige-danger</div></div>
+      <div class="swatch"><div class="chip" style="background:#e81123"></div><div class="hex">#e81123</div><div class="nm">--prestige-close</div></div>
+      <div class="swatch"><div class="chip" style="background:rgba(251,228,130,.35)"></div><div class="hex">55%</div><div class="nm">--prestige-accent-55</div></div>
+      <div class="swatch"><div class="chip" style="background:rgba(251,228,130,.15)"></div><div class="hex">15%</div><div class="nm">--prestige-accent-15</div></div>
+      <div class="swatch"><div class="chip" style="background:rgba(0,0,0,.12)"></div><div class="hex">12%</div><div class="nm">--prestige-shadow-12</div></div>
+    </div>
+
+    <div class="code-block reveal">
+      <button class="copy-btn" data-copy="codeTokens">Copy</button>
+      <div class="bar"><i></i><i></i><i></i><span class="fname">css/tokens.css</span></div>
+      <pre><span class="c">/* Re-skin the entire desktop with 1 line: */</span>
+:root {
+  <span class="k">--prestige-accent</span>: <span class="s">#fbe482</span>;      <span class="c">/* brand gold */</span>
+  <span class="k">--prestige-bg</span>:     <span class="s">#ffffff</span>;      <span class="c">/* background */</span>
+  <span class="k">--prestige-text</span>:    <span class="s">#000000</span>;      <span class="c">/* text */</span>
+  <span class="k">--prestige-success</span>: <span class="s">#10b981</span>;      <span class="c">/* green */</span>
+  <span class="k">--prestige-warning</span>: <span class="s">#f59e0b</span>;      <span class="c">/* orange */</span>
+  <span class="k">--prestige-danger</span>:  <span class="s">#ef4444</span>;      <span class="c">/* red */</span>
+  <span class="k">--prestige-radius</span>:  <span class="s">12px</span>;
+  <span class="k">--prestige-font</span>:    <span class="s">'Inter'</span>, system-ui, sans-serif;
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUICK START ================= -->
+<section class="quick" id="quickstart">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Quick Start</span>
+      <h2>Live in seconds.</h2>
+      <p>Two tags, shell markup, and one line of JavaScript. No build step, no framework.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="tabs reveal">
+        <button class="tab active" data-tab="html">HTML</button>
+        <button class="tab" data-tab="js">JavaScript</button>
+        <button class="tab" data-tab="app">Register an app</button>
+      </div>
+
+      <div class="code-block big reveal">
+        <button class="copy-btn" data-copy="codeHtml">Copy</button>
+        <div class="bar"><i></i><i></i><i></i><span class="fname" id="tabFname">index.html</span></div>
+
+        <pre class="tab-pane active" id="pane-html"><span class="c">&lt;!-- 1. Two tags --&gt;</span>
+<span class="s">&lt;link</span> rel=<span class="s">"stylesheet"</span> href=<span class="s">"dist/prestige.css"</span><span class="s">&gt;</span>
+<span class="s">&lt;script</span> src=<span class="s">"dist/prestige.umd.js"</span> defer<span class="s">&gt;&lt;/script&gt;</span>
+
+<span class="c">&lt;!-- 2. Declare the shell --&gt;</span>
+<span class="s">&lt;body</span> class=<span class="s">"desktop-body"</span><span class="s">&gt;</span>
+  <span class="s">&lt;header</span> class=<span class="s">"menubar"</span><span class="s">&gt;</span>
+    <span class="s">&lt;span</span> class=<span class="s">"menubar-app"</span><span class="s">&gt;</span>My App<span class="s">&lt;/span&gt;</span>
+    <span class="s">&lt;span</span> class=<span class="s">"menubar-clock"</span> id=<span class="s">"menubar-clock"</span><span class="s">&gt;&lt;/span&gt;</span>
+  <span class="s">&lt;/header&gt;</span>
+  <span class="s">&lt;main</span> class=<span class="s">"desktop-canvas"</span> id=<span class="s">"desktop-canvas"</span><span class="s">&gt;&lt;/main&gt;</span>
+  <span class="s">&lt;nav</span> class=<span class="s">"dock"</span> id=<span class="s">"dock"</span><span class="s">&gt;&lt;/nav&gt;</span>
+<span class="s">&lt;/body&gt;</span></pre>
+
+        <pre class="tab-pane" id="pane-js"><span class="c">// 3. Initialize</span>
+<span class="k">document</span>.addEventListener(<span class="s">'DOMContentLoaded'</span>, () =&gt; {
+  <span class="k">const</span> os = <span class="k">new</span> <span class="s">Prestige</span>({
+    search: <span class="k">true</span>,         <span class="c">// Ctrl+Space spotlight</span>
+    dock: <span class="k">true</span>,
+    topdock: <span class="k">true</span>,
+    snap: <span class="k">true</span>,           <span class="c">// magnet snapping</span>
+    shakeToMinimize: <span class="k">true</span>,
+    session: <span class="k">true</span>,        <span class="c">// persist layout</span>
+  });
+
+  os.init();
+  renderIcons();            <span class="c">// hydrate SVG icons</span>
+
+  <span class="c">// React to the shell</span>
+  os.on(<span class="s">'window:open'</span>, ({ section, win }) =&gt; {
+    <span class="k">console</span>.log(<span class="s">`Opened ${section}`</span>, win);
+  });
+});</pre>
+
+        <pre class="tab-pane" id="pane-app">os.registerApp(<span class="s">'analytics'</span>, {
+  title: <span class="s">'Analytics'</span>,
+  icon: <span class="s">'chart-no-axes-column'</span>,
+  c1: <span class="s">'#fbe482'</span>,
+  c2: <span class="s">'#000000'</span>,
+  placement: <span class="s">'dock'</span>,      <span class="c">// 'dock' | 'topdock' | 'hidden' | 'both'</span>
+  w: <span class="k">900</span>, h: <span class="k">620</span>,
+
+  <span class="c">// DOM nodes render as-is; strings render as text.</span>
+  content: (appId, label, icon) =&gt;
+    createCard(<span class="s">'Revenue'</span>, createStatCard(<span class="s">'99.9%'</span>, <span class="s">'Uptime'</span>)),
+});
+
+<span class="c">// Open it</span>
+os.openWindow(<span class="s">'analytics'</span>);</pre>
+      </div>
+
+      <div class="lang-row reveal">
+        <span class="lang-chip"><i></i>Rust</span>
+        <span class="lang-chip"><i></i>Go</span>
+        <span class="lang-chip"><i></i>Python</span>
+        <span class="lang-chip"><i></i>Django</span>
+        <span class="lang-chip"><i></i>Flask</span>
+        <span class="lang-chip"><i></i>FastAPI</span>
+        <span class="lang-chip"><i></i>Rails</span>
+        <span class="lang-chip"><i></i>Laravel</span>
+        <span class="lang-chip"><i></i>HTMX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section>
+  <div class="wrap">
+    <div class="cta-banner reveal">
+      <div class="cta-inner">
+        <h2>Make your product feel like home.</h2>
+        <p>Drop the desktop into your stack today. Zero dependencies, zero lock-in, fully themeable.</p>
+        <a class="btn btn-gold" href="https://github.com/Eng-AliKazemi/Prestige-Web-UI" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          Star on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">
+        <span class="nav-logo"><svg viewBox="0 0 24 24"><path d="M9 4v16M9 4h6M15 4v8M9 12h6"/></svg></span>
+        Prestige Web UI
+      </div>
+      <p class="foot-desc">light, secure, modern UI framework designed for the AI era, delivering a seamless user experience across complex multi-page admin dashboards and enterprise interfaces</p>
+    </div>
+    <div class="foot-col">
+      <h5>Documentation</h5>
+      <a href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/docs/PRESTIGE.md" target="_blank" rel="noopener">PRESTIGE.md, Blueprint</a>
+      <a href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/docs/MANUAL.md" target="_blank" rel="noopener">MANUAL.md, Guide</a>
+      <a href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/AI_INSTRUCTIONS.md" target="_blank" rel="noopener">AI_INSTRUCTIONS.md, Meta-Prompt</a>
+      <a href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/AGENTS.md" target="_blank" rel="noopener">AGENTS.md, Conventions</a>
+    </div>
+    <div class="foot-col">
+      <h5>Engineering</h5>
+      <a href="TYPESCRIPT.md">TypeScript Port</a>
+      <a href="DEVELOPMENT.md">Development</a>
+      <a href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/CHANGES.md">Changelog</a>
+      <a href="https://github.com/Eng-AliKazemi/Prestige-Web-UI/blob/main/AGENTS.md">Conventions</a>
+    </div>
+    <div class="foot-col">
+      <h5>Distribution</h5>
+      <a href="dist/prestige.umd.cjs">prestige.umd.cjs (UMD)</a>
+      <a href="dist/prestige.js">prestige.js (ESM)</a>
+      <a href="dist/prestige.css">prestige.css</a>
+      <a href="dist/index.d.ts">index.d.ts</a>
+      <a href="dist/manifest.json">manifest.json</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 <a class="fb-link" href="https://www.linkedin.com/in/e-a-k/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>Aran Kazemi</a> · Licensed under <b>Apache-2.0</b></span>
+    <span>Realtime AI Dashboards · Secure Web3 · Zero Dependencies</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <img id="lightboxImg" src="" alt="Prestige Web UI screenshot (zoomed)">
+</div>
+
+<script>
+/* ============================================================
+   PRESTIGE WEB UI marketing page, inline interactions
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
+  var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
+
+  /* owner override: force full animation even when the OS requests reduced motion */
+  if (/(?:[?&]anim=full\b)/.test(location.search)) {
+    document.documentElement.setAttribute('data-anim', 'full');
+  }
+
+  /* ---------- Scroll engine: progress bar, hero fade, velocity, directional cascade reveal ---------- */
+  var progress = $('#scrollProgress');
+  var docEl = document.documentElement;
+  var hero = $('.hero');
+  var heroFade = $('.hero-fade');
+  var lastY = window.scrollY;
+  var revealQueued = false;
+
+  /* every card inside a [data-cascade] grid joins the reveal system */
+  $$('[data-cascade]').forEach(function (grid) {
+    Array.prototype.forEach.call(grid.children, function (child) {
+      if (!child.classList.contains('reveal')) child.classList.add('reveal');
+    });
+  });
+  var revealEls = $$('.reveal');
+
+  /* ---------- Choreography: give each reveal element a distinct motion ---------- */
+  var REVEAL_THEMES = {
+    'features': ['reveal-fold'],
+    'gallery': ['reveal-wipe'],
+    'ai': ['reveal-slide', 'reveal-slide-left'],
+    'web3': ['reveal-spin'],
+    'components': ['reveal-fold'],
+    'architecture': ['reveal-blur'],
+    'backend': ['reveal-blur', 'reveal-fold'],
+    'theming': ['reveal-slide'],
+    'quickstart': ['reveal-fold']
+  };
+  function hasRevealVariant(el) {
+    return ['reveal-fade', 'reveal-wipe', 'reveal-blur', 'reveal-fold', 'reveal-slide', 'reveal-slide-left', 'reveal-spin'].some(function (c) { return el.classList.contains(c); });
+  }
+  $$('.section-head.reveal').forEach(function (head, i) {
+    head.classList.add(i % 2 ? 'reveal-blur' : 'reveal-wipe');
+  });
+  $$('[data-cascade]').forEach(function (grid) {
+    var sec = grid.closest('section');
+    var theme = (sec && REVEAL_THEMES[sec.id]) || ['reveal-blur'];
+    Array.prototype.forEach.call(grid.children, function (child, i) {
+      if (child.classList.contains('reveal')) child.classList.add(theme[i % theme.length]);
+    });
+  });
+  var miscReveals = {
+    '.arch-box.reveal': 'reveal-fold',
+    '.arch-arrow': 'reveal-fade',
+    '.arch-legend.reveal': 'reveal-blur',
+    '.theme-grid.reveal': 'reveal-fold',
+    '.code-block.reveal': 'reveal-wipe',
+    '.cta-banner.reveal': 'reveal-spin',
+    '.tabs.reveal': 'reveal-slide',
+    '.lang-row.reveal': 'reveal-blur'
+  };
+  Object.keys(miscReveals).forEach(function (sel) {
+    $$(sel).forEach(function (el) { el.classList.add(miscReveals[sel]); });
+  });
+  revealEls.forEach(function (el) { if (!hasRevealVariant(el)) el.classList.add('reveal-fade'); });
+
+  /* ---------- Word-by-word hero title ---------- */
+  var heroTitle = $('.hero h1');
+  if (heroTitle) {
+    var h1nodes = Array.prototype.slice.call(heroTitle.childNodes);
+    heroTitle.innerHTML = '';
+    h1nodes.forEach(function (node) {
+      if (node.nodeType === 3) {
+        var parts = node.textContent.split(/(\s+)/);
+        parts.forEach(function (p) {
+          if (!p) return;
+          if (/^\s+$/.test(p)) { heroTitle.appendChild(document.createTextNode(p)); return; }
+          var w = document.createElement('span');
+          w.className = 'word';
+          var inner = document.createElement('span');
+          inner.textContent = p;
+          w.appendChild(inner);
+          heroTitle.appendChild(w);
+        });
+      } else if (node.nodeType === 1 && node.className === 'gold') {
+        var wrap = document.createElement('span');
+        wrap.className = 'word';
+        wrap.appendChild(node);
+        heroTitle.appendChild(wrap);
+      } else {
+        heroTitle.appendChild(node);
+      }
+    });
+  }
+
+  /* auto top-to-bottom stagger: delay = sibling index within parent grid */
+  function assignStagger(el) {
+    if (el._stagger !== undefined) return;
+    var parent = el.parentElement;
+    var idx = parent ? Array.prototype.indexOf.call(parent.children, el) : 0;
+    el._stagger = Math.min(idx, 8) * 0.06;
+    el.style.transitionDelay = el._stagger + 's';
+  }
+
+  function syncReveals() {
+    revealQueued = false;
+    var vh = window.innerHeight;
+    for (var i = 0; i < revealEls.length; i++) {
+      var el = revealEls[i];
+      var r = el.getBoundingClientRect();
+      var visible = r.top < vh - 40 && r.bottom > 60;
+      if (visible) {
+        assignStagger(el);
+        if (!el.classList.contains('in')) el.classList.add('in');
+      } else if (el.classList.contains('in')) {
+        el.classList.remove('in');
+      }
+    }
+  }
+
+  function onScroll() {
+    var y = window.scrollY;
+    var vel = Math.abs(y - lastY);
+    lastY = y;
+
+    document.body.classList.toggle('is-fast', vel > 5);
+
+    if (heroFade) {
+      var fade = Math.max(0, Math.min((y - 60) / 420, 1));
+      heroFade.style.opacity = String(1 - fade * 0.9);
+      var heroGrid = $('.hero-grid');
+      if (heroGrid) heroGrid.style.transform = 'translate3d(0,' + (y * 0.35).toFixed(1) + 'px,0)';
+    }
+
+    var max = docEl.scrollHeight - docEl.clientHeight;
+    progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+
+    if (!revealQueued) {
+      revealQueued = true;
+      requestAnimationFrame(syncReveals);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Feature card spotlight tilt ---------- */
+  $$('.feature').forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width;
+      var y = (e.clientY - r.top) / r.height;
+      card.style.setProperty('--mx', (x * 100) + '%');
+      card.style.setProperty('--my', (y * 100) + '%');
+      var rx = (y - 0.5) * -7, ry = (x - 0.5) * 7;
+      card.style.transform = 'translateY(-6px) perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
+    });
+  });
+
+  /* ---------- Magnetic buttons + gallery 3D tilt + cursor glow (fine pointers only) ---------- */
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('.btn, .mini-btn, .nav-cta, .nav-ghost').forEach(function (btn) {
+      btn.classList.add('magnetic');
+      var rect = null;
+      btn.addEventListener('mousemove', function (e) {
+        rect = rect || btn.getBoundingClientRect();
+        var dx = (e.clientX - (rect.left + rect.width / 2)) * 0.22;
+        var dy = (e.clientY - (rect.top + rect.height / 2)) * 0.22;
+        btn.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        rect = null;
+        btn.style.transform = '';
+      });
+    });
+
+    $$('.shot').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width;
+        var y = (e.clientY - r.top) / r.height;
+        var rx = (y - 0.5) * -8, ry = (x - 0.5) * 8;
+        card.style.transform = 'translateY(-6px) perspective(1000px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+    });
+
+    var glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+    var heroEl = $('.hero');
+    var mx = 0, my = 0, gx = 0, gy = 0;
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!heroEl) return;
+      var r = heroEl.getBoundingClientRect();
+      glow.style.opacity = (my > r.top && my < r.bottom && mx > r.left && mx < r.right) ? '1' : '0';
+    });
+    (function glowLoop() {
+      gx += (mx - gx) * 0.16;
+      gy += (my - gy) * 0.16;
+      glow.style.transform = 'translate3d(' + (gx - 170).toFixed(1) + 'px,' + (gy - 170).toFixed(1) + 'px,0)';
+      requestAnimationFrame(glowLoop);
+    })();
+  }
+
+  /* ---------- Interactive demo: switches ---------- */
+  $$('[data-sr]').forEach(function (sw) {
+    var label = sw.dataset.label;
+    sw.addEventListener('click', function () {
+      sw.classList.toggle('on');
+      var state = $('.state', sw.parentElement);
+      if (state) state.textContent = label + ': ' + (sw.classList.contains('on') ? 'true' : 'false');
+    });
+  });
+
+  /* ---------- Interactive demo: progress bars ---------- */
+  var bars = [
+    { el: $('#p1'), val: $('#p1val'), done: 92 },
+    { el: $('#p2'), val: $('#p2val'), done: 68 },
+    { el: $('#p3'), val: $('#p3val'), done: 100 }
+  ];
+  var progObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      progObs.unobserve(en.target);
+      var idx = parseInt(en.target.id.replace('p', ''), 10) - 1;
+      var bar = bars[idx];
+      setTimeout(function () {
+        bar.el.style.width = bar.done + '%';
+        bar.val.textContent = bar.done + '%';
+      }, 300 + idx * 350);
+    });
+  }, { threshold: 0.5 });
+  bars.forEach(function (b) { progObs.observe(b.el); });
+
+  /* ---------- Interactive demo: stepper ---------- */
+  $$('.step', $('#stepper')).forEach(function (step) {
+    step.style.cursor = 'pointer';
+    step.addEventListener('click', function () {
+      var idx = parseInt(step.dataset.step, 10);
+      var steps = $$('.step', $('#stepper'));
+      steps.forEach(function (s, i) {
+        s.classList.remove('on', 'done');
+        if (i < idx) s.classList.add('done');
+        if (i === idx) s.classList.add('on');
+      });
+    });
+  });
+
+  /* ---------- Tabs ---------- */
+  var tabs = $$('.tab');
+  var panes = {
+    html: { pane: $('#pane-html'), file: 'index.html' },
+    js: { pane: $('#pane-js'), file: 'app.js' },
+    app: { pane: $('#pane-app'), file: 'register-app.js' }
+  };
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      Object.keys(panes).forEach(function (k) {
+        var v = panes[k];
+        v.pane.classList.toggle('active', k === tab.dataset.tab);
+        if (k === tab.dataset.tab) $('#tabFname').textContent = v.file;
+      });
+    });
+  });
+
+  /* ---------- Copy buttons ---------- */
+  $$('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.dataset.copy;
+      var code = $('#' + id + ' pre, #' + id) || $('#pane-html');
+      var txt;
+      if (id === 'codeHtml') txt = $('#pane-html');
+      else if (id === 'codeTokens') {
+        var pre = $('.code-block pre');
+        txt = pre ? pre.textContent : '';
+      } else if (id === 'codeBackend') {
+        var be = $('#codeBackend');
+        txt = be ? be.textContent : '';
+      } else {
+        var pane = $('.tab-pane.active');
+        txt = pane ? pane.textContent : '';
+      }
+      if (typeof txt === 'string') txt = txt.trim();
+      else if (txt && txt.textContent) txt = txt.textContent.trim();
+      else return;
+
+      var done = function () {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1600);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(done, function () { fallbackCopy(txt, done); });
+      } else {
+        fallbackCopy(txt, done);
+      }
+    });
+  });
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { /* noop */ }
+    document.body.removeChild(ta);
+  }
+
+  /* ---------- Lightbox (click to zoom gallery) ---------- */
+  var lightbox = $('#lightbox');
+  var lightboxImg = $('#lightboxImg');
+  var lastFocused = null;
+
+  function openLightbox(src, alt) {
+    lastFocused = document.activeElement;
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  $$('.shot img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      openLightbox(img.src, img.alt);
+    });
+  });
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
+
+  /* ---------- Marquee duplication ---------- */
+  var marquee = $('#marquee');
+  marquee.innerHTML += marquee.innerHTML;
+})();
+</script>
+</body>
+</html>

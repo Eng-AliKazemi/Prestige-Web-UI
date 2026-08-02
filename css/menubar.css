@@ -1,0 +1,113 @@
+.menubar {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--prestige-menubar-height);
+    z-index: 10000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 14px;
+    background: var(--prestige-glass-90);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid var(--prestige-accent-12);
+    color: var(--prestige-text);
+    font-size: 12.5px;
+    user-select: none;
+    box-shadow: 0 4px 20px var(--prestige-accent-08);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+.menubar-left, .menubar-right { display: flex; align-items: center; gap: 14px; }
+.menubar-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
+.menubar-app    { font-weight: 600; opacity: 0.9; }
+.menubar-item   { opacity: 0.75; font-weight: 500; }
+.menubar-email  { opacity: 0.75; font-size: 11.5px; }
+.menubar-btn    {
+    background: transparent; border: 0; color: inherit;
+    cursor: pointer; padding: 2px 6px; border-radius: 6px;
+    font-size: 13px; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.menubar-btn:hover { background: var(--prestige-accent-10); }
+.menubar-btn svg {
+    will-change: transform;
+    width: 16px; height: 16px; stroke-width: 2.2px;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+.menubar-btn:hover svg { transform: rotate(360deg); }
+.menubar-clock  {
+    font-variant-numeric: tabular-nums; font-weight: 500;
+    opacity: 0.85; min-width: 50px; text-align: center;
+}
+.menubar-item.menubar-trigger { cursor: default; padding: 0 4px; border-radius: 4px; }
+.menubar-item.menubar-trigger.is-open { background: var(--prestige-accent-30); }
+
+/* Top-dock circular buttons */
+.menubar-dock-item {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--prestige-glass-15);
+    background: linear-gradient(135deg, var(--prestige-accent) 0%, var(--prestige-accent) 100%);
+    color: var(--prestige-text);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; padding: 0;
+    box-shadow: 0 4px 10px var(--prestige-accent-30), inset 0 1px 0 var(--prestige-glass-15);
+    transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), box-shadow 0.18s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    flex-shrink: 0;
+}
+.menubar-dock-item:hover {
+    transform: translateY(-2px) scale(1.10);
+    box-shadow: 0 6px 16px var(--prestige-accent-35), inset 0 1px 0 var(--prestige-glass-25);
+}
+.menubar-dock-item:active { transform: translateY(0) scale(0.95); }
+.menubar-dock-item svg {
+    will-change: transform;
+    width: 15px; height: 15px;
+    stroke-width: 2.4px; display: block;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+.menubar-dock-item:hover svg { transform: rotate(360deg); }
+.menubar-dock-item.is-dragging {
+    opacity: 0.35;
+    transform: scale(0.92);
+    pointer-events: none;
+}
+.menubar-dock-item.drag-over {
+    transform: translateY(-2px) scale(1.10);
+    box-shadow:
+        0 0 0 2px var(--prestige-accent-70),
+        0 0 14px var(--prestige-accent-40);
+}
+
+/* Dropdown menus */
+.menubar-dropdown {
+    position: absolute; top: var(--prestige-menubar-height); left: 0;
+    min-width: 260px;
+    background: var(--prestige-glass-65);
+    backdrop-filter: blur(32px) saturate(190%);
+    -webkit-backdrop-filter: blur(32px) saturate(190%);
+    border: 1px solid var(--prestige-accent-20);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 18px 50px var(--prestige-accent-14);
+    color: var(--prestige-text);
+    padding: 6px;
+    z-index: 11000;
+    font-size: 12.5px;
+    display: none;
+    user-select: none;
+}
+.menubar-dropdown.is-open { display: block; }
+.menubar-dropdown .ctx-item { padding: 5px 12px; }
+.menubar-dropdown .ctx-item .ctx-check { width: 14px; display: inline-block; text-align: center; opacity: 0.85; }
+
+[data-gpu="false"] .menubar,
+[data-gpu="false"] .menubar-dock-item,
+[data-gpu="false"] .menubar-btn svg,
+[data-gpu="false"] .menubar-dock-item svg {
+    will-change: auto;
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+}
+.menubar-dropdown .ctx-item.is-current { background: var(--prestige-accent-22); }
